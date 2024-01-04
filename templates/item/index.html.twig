@@ -1,41 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item index{% endblock %}
+{% block title %}Shop
+{% endblock %}
 
 {% block body %}
-    <h1>Item index</h1>
+	<div class="merde"></div>
+	<div class="container">
+	<h1>Shop</h1>
+	</div>
+	{% for item in items %}
+		<div class="container">
+			<div class="card mb-4" style="max-width: 50rem;">
+				<div class="row g-0">
+					<div class="col-md-4 d-flex justify-content-center">
+						<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">{{ item.name }}</h5>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Brand</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for item in items %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.brand }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>
-                    <a href="{{ path('app_item_show', {'id': item.id}) }}">show</a>
-                    <a href="{{ path('app_item_edit', {'id': item.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_item_new') }}">Create new</a>
-{% endblock %}
+							<p class="card-text">
+								<small class="text-info">Brand:
+									{{ item.brand }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-info">Category:
+									{{ item.category.type }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-danger">Price:
+									{{ item.price }}
+									$</small>
+							</p>
+							<p class="card-text">
+								<small class="text-secondary">Quantity:
+									{{ item.quantity }}</small>
+							</p>
+							<div>
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+									Detailled description
+								</button>
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header text-center">
+											<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+											<p class="card-text text-black">{{ item.description }}</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<tr>
+		<td colspan="6">no records found</td>
+	</tr>
+{% endfor %}{% endblock %}

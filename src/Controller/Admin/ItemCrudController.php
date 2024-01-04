@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class ItemCrudController extends AbstractCrudController
 {
@@ -27,6 +28,7 @@ class ItemCrudController extends AbstractCrudController
             TextField::new('name'),
             TextField::new('brand'),
             AssociationField::new('category'),
+            TextEditorField::new('description'),
             NumberField::new('price'),
             IntegerField::new('quantity'),
             ImageField::new('picture')

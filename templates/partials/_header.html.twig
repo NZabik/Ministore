@@ -80,11 +80,11 @@
 							<div class="user-items ps-5">
 								<ul class="d-flex justify-content-end list-unstyled">
 									<li class="search-item pe-3">
-										<a href="#" class="search-button">
-											<svg class="search">
-												<use xlink:href="#search"></use>
-											</svg>
-										</a>
+										<div class="d-flex">
+											{{ render(controller(
+        'App\\Controller\\SearchController::searchBar'
+ )) }}
+										</div>
 									</li>
 									<li class="pe-3">
 										{% if app.user %}
@@ -224,4 +224,4 @@
 
 		</div>
 	</div>
-</body>
+
