@@ -28,10 +28,10 @@ class SearchController extends AbstractController
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Chercher un article'
+                    'placeholder' => 'Search an article'
                 ]
             ])
-            ->add('recherche', SubmitType::class, [
+            ->add('search', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]

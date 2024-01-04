@@ -34,4 +34,30 @@ class ItemRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function findArticlesByAll($query, $query2)
+{
+    if($query == "") {
+        return $this->createQueryBuilder("a")
+        ->Where('a.category = :category')
+        ->setParameter('category',$query2)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else if ($query2 == "") {
+        return $this->createQueryBuilder("a")
+        ->Where('a.name = :name')
+        ->setParameter('name',$query)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else {return $this->createQueryBuilder("a")
+        ->where('a.name = :name')
+        ->andWhere('a.category = :category')
+        ->setParameter('name',$query)
+        ->setParameter('category',$query2)
+        ->getQuery()
+        ->getResult()
+    ;
+}
+}
 }

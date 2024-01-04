@@ -7,7 +7,10 @@
 	<div class="merde"></div>
 	<div class="container">
 	<h1>Shop</h1>
-	</div>
+	
+	<div class="mx-2">
+				{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
+			</div></div>
 	{% for item in items %}
 		<div class="container">
 			<div class="card mb-4" style="max-width: 50rem;">
