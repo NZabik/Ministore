@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\WatchRepository;
+use App\Repository\ItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: WatchRepository::class)]
-class Watch
+#[ORM\Entity(repositoryClass: ItemRepository::class)]
+class Item
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +28,11 @@ class Watch
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'items')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
     public function __construct()
@@ -100,12 +104,24 @@ class Watch
         return $this;
     }
 
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     public function getPicture(): ?string
     {
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): static
+    public function setPicture(string $picture): static
     {
         $this->picture = $picture;
 

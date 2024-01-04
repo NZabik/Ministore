@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Item;
 use App\Entity\User;
-use App\Entity\Watch;
-use App\Entity\Mobile;
+use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -32,7 +32,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Retour au site', 'fa fa-home', 'home.index');
         yield MenuItem::linkToCrud('User', 'fas fa-users', User::class)->setDefaultSort(['id' => 'ASC']);
-        yield MenuItem::linkToCrud('Mobile', 'fas fa-users', Mobile::class)->setDefaultSort(['id' => 'ASC']);
-        yield MenuItem::linkToCrud('Watch', 'fas fa-users', Watch::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Item', 'fas fa-mobile-screen', Item::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Category', 'fas fa-layer-group', Category::class)->setDefaultSort(['id' => 'ASC']);
     }
 }
