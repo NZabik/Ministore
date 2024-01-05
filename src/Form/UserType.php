@@ -24,7 +24,7 @@ class UserType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
-                'label' => 'Nom',
+                'label' => 'Last name',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -39,7 +39,7 @@ class UserType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
-                'label' => 'Prénom',
+                'label' => 'First name',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -48,34 +48,34 @@ class UserType extends AbstractType
                     new Assert\NotBlank,
                 ]
             ])
-            ->add('plainPassword', RepeatedType::class,[
-                'type'=>PasswordType::class,
-                'first_options'=>[
-                    'attr' => ['class' => 'form-control'],
-                    'label'=>'Mot de passe',
-                    'label_attr' => ['class' => 'form-label mt-2'],
-                ],
-                'second_options'=>[
-                    'attr' => ['class' => 'form-control'],
-                    'label'=>'Confirmation du mot de passe',
-                    'label_attr' => ['class' => 'form-label mt-2'],
-                ],
-                'invalid_message'=>'les mots de passe ne correspondent pas'
-            ])
-            ->add('newPassword', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Nouveau mot de passe',
+                'label' => 'Actual password',
                 'label_attr' => ['class' => 'form-label mt-2'],
                 'constraints' => [new Assert\NotBlank]
                 ]
             )
+            ->add('newPassword', RepeatedType::class,[
+                'type'=>PasswordType::class,
+                'first_options'=>[
+                    'attr' => ['class' => 'form-control'],
+                    'label'=>'New password',
+                    'label_attr' => ['class' => 'form-label mt-2'],
+                ],
+                'second_options'=>[
+                    'attr' => ['class' => 'form-control'],
+                    'label'=>'New password confirmation',
+                    'label_attr' => ['class' => 'form-label mt-2'],
+                ],
+                'invalid_message'=>'The passwords does not match'
+            ])
             ->add('adresse', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
-                'label' => 'Adresse',
+                'label' => 'Address',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -90,7 +90,7 @@ class UserType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 5
                 ],
-                'label' => 'Code postal',
+                'label' => 'ZIP code',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -105,7 +105,7 @@ class UserType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
-                'label' => 'Ville',
+                'label' => 'Town',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],

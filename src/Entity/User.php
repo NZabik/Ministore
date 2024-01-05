@@ -62,9 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $ville = null;
 
     #[ORM\Column]
-    private ?bool $RGPD = null;
-
-    #[ORM\Column]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -198,18 +195,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVille(string $ville): static
     {
         $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function isRGPD(): ?bool
-    {
-        return $this->RGPD;
-    }
-
-    public function setRGPD(bool $RGPD): static
-    {
-        $this->RGPD = $RGPD;
 
         return $this;
     }

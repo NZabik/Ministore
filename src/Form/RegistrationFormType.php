@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
-                'label' => 'Nom',
+                'label' => 'Last name',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -43,7 +43,7 @@ class RegistrationFormType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
-                'label' => 'Prénom',
+                'label' => 'First name',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 180
                 ],
-                'label' => 'Adresse email',
+                'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -74,7 +74,7 @@ class RegistrationFormType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
-                'label' => 'Adresse',
+                'label' => 'Address',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -89,7 +89,7 @@ class RegistrationFormType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 5
                 ],
-                'label' => 'Code postal',
+                'label' => 'ZIP code',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -104,7 +104,7 @@ class RegistrationFormType extends AbstractType
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
-                'label' => 'Ville',
+                'label' => 'Town',
                 'label_attr' => [
                     'class' => 'form-label mt-2',
                 ],
@@ -119,7 +119,7 @@ class RegistrationFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control',
                     ],
-                    'label' => 'Mot de passe',
+                    'label' => 'Password',
                     'label_attr' => [
                         'class' => 'form-label mt-2',
                     ],
@@ -128,22 +128,19 @@ class RegistrationFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control',
                     ],
-                    'label' => 'Confirmation du mot de passe',
+                    'label' => 'Password confirmation',
                     'label_attr' => [
                         'class' => 'form-label mt-2',
                     ],
                 ],
-                'invalid_message' => 'les mots de passe ne correspondent pas'
-            ])
-
-            ->add('RGPD', CheckboxType::class, [
-                'label' => "termes d'utilisation du site",
-                'label_attr' => [
-                    'class' => 'form-label mt-2',
-                ],
+                'invalid_message' => 'The passwords does not match'
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'Agree our terms',
+                    'label_attr' => [
+                        'class' => 'form-label mt-2',
+                    ],
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
