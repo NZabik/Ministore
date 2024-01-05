@@ -6,11 +6,12 @@
 {% block body %}
 	<div class="merde"></div>
 	<div class="container">
-	<h1>Shop</h1>
-	
-	<div class="mx-2">
-				{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
-			</div></div>
+		<h1>Shop</h1>
+
+		<div class="mx-2">
+			{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
+		</div>
+	</div>
 	{% for item in items %}
 		<div class="container">
 			<div class="card mb-4" style="max-width: 50rem;">
@@ -46,7 +47,7 @@
 							</div>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
-								<div class="modal-dialog">
+								<div class="modal-dialog modal-lg">
 									<div class="modal-content">
 										<div class="modal-header text-center">
 											<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
@@ -57,7 +58,13 @@
 											<p class="card-text text-black">{{ item.description }}</p>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<form method="post">
+												<div class="form-group d-flex flex-row align-items-center">
+													<label for="quantity">Quantity</label>
+													<input type="number" class="form-control mx-2" style="width:80px" id="quantity">
+													<button class="btn btn-primary cart-button" style="width:180px">Add to Cart</button>
+												</div>
+											</form>
 										</div>
 									</div>
 								</div>

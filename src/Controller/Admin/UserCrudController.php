@@ -28,7 +28,6 @@ class UserCrudController extends AbstractCrudController
             IntegerField::new('codePostal'),
             TextField::new('ville'),
             ArrayField::new('roles'),
-            BooleanField::new('RGPD'),
         ];
     }
 
