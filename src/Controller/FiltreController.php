@@ -44,7 +44,7 @@ class FiltreController extends AbstractController
                 'placeholder' => '',
                 'choice_label' => 'type',
                 'attr' => [
-                    'class' => 'text-warning'
+                    'class' => 'text-info'
                 ]
             ])
             ->add('filter', SubmitType::class, [
