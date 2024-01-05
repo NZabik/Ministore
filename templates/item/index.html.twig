@@ -44,6 +44,7 @@
 								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
 									Detailled description
 								</button>
+								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View and order</a>
 							</div>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
@@ -58,11 +59,6 @@
 											<p class="card-text text-black">{{ item.description }}</p>
 										</div>
 										<div class="modal-footer">
-											<form method="post">
-												<div class="form-group d-flex flex-row align-items-center">
-													<label for="quantity">Quantity</label>
-													<input type="number" class="form-control mx-2" style="width:80px" id="quantity">
-													<button class="btn btn-primary cart-button" style="width:180px">Add to Cart</button>
 												</div>
 											</form>
 										</div>
