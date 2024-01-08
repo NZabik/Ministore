@@ -13,13 +13,13 @@
 					
                     <table class="table border border-primary border-2">
                         <thead class="">
-                        <th class="text-center border table-primary">Order Nb:</th>
-                        <th colspan="3" class="text-center border table-primary">{{order.reference}}</th>
+                        <th class="text-center border table-secondary">Order Nb:</th>
+                        <th colspan="3" class="text-center border table-secondary">{{order.reference}}</th>
                         <tr>
-                        <th class="text-center border text-primary table-secondary">Item</th>
-                        <th class="text-center border text-primary table-secondary">Quantity</th>
-                        <th class="text-center border text-primary table-secondary">Price</th>
-                        <th class="text-center border text-primary table-secondary">total per item</th>
+                        <th class="text-center border text-primary">Item</th>
+                        <th class="text-center border text-primary">Quantity</th>
+                        <th class="text-center border text-primary">Price</th>
+                        <th class="text-center border text-primary">total per item</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,12 +36,12 @@
                         </tbody>
                         <tfoot>
             <tr>
-            <td class="text-center border text-primary fw-bold table-warning">Total:</td>
-            <td colspan="3" class="text-center border text-primary table-warning">{{ total }} $</td>
+            <td class="text-center border text-primary fw-bold">Total:</td>
+            <td colspan="3" class="text-center border text-primary">{{ total }} $</td>
             </tr>
             <tr>
-            <td class="text-center border fw-bold table-success">delivered to:</td>
-            <td colspan="3" class="text-center borderd table-success">{{order.adresse}}, {{order.codePostal}} {{order.ville}}</td>
+            <td class="text-center border fw-bold table-secondary">delivered to:</td>
+            <td colspan="3" class="text-center borderd table-secondary">{{order.adresse}}, {{order.codePostal}} {{order.ville}}</td>
             </tr>
             </tfoot>
                         </table>

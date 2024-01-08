@@ -257,7 +257,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function __toString()
     {
-        return $this->nom ." ". $this->prenom;
+        return $this->nom ." ". $this->prenom ." ". $this->adresse ." ". $this->codePostal ." ". $this->ville;
     }
 
     /**

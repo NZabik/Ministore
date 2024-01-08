@@ -34,11 +34,11 @@ class OrdersController extends AbstractController
         // on rempli la commande
         $order->setUser($this->getUser());
         $order->setReference(uniqid('order_'));
-        // $order->setAdresse($this->getUser()->getAdresse());
-        // $order->setCodePostal($this->getUser()->getCodePostal());
-        // $order->setVille($this->getUser()->getVille());
-        $form = $this->createForm(AddressType::class, $order);
-
+        
+        $userAdresse = $this->getUser()->getAdresse();
+        $userCP = $this->getUser()->getCodePostal();
+        $userVille = $this->getUser()->getVille();
+        $form = $this->createForm(AddressType::class, ['adresse' => $userAdresse, 'codePostal' => $userCP, 'ville' => $userVille, $order]);
         // Gérez la soumission du formulaire
         $form->handleRequest($request);
 
@@ -60,6 +60,9 @@ class OrdersController extends AbstractController
                 $order->addOrdersDetail($orderDetails);
             }
             //on persist et on flush    
+            $order->setAdresse($form->get('adresse')->getData());
+            $order->setCodePostal($form->get('codePostal')->getData());
+            $order->setVille($form->get('ville')->getData());
             $em->persist($order);
             $em->flush();
 

@@ -16,6 +16,7 @@ class AddressType extends AbstractType
     {
         $builder
         ->add('adresse', TextType::class, [
+            'empty_data' => 'Adresse par défaut',
             'attr' => [
                 'class' => 'form-control',
                 'minlenght' => 2,

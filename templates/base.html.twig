@@ -13,16 +13,23 @@
 			<link rel="preconnect" href="https://fonts.googleapis.com">
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 			<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="//unpkg.com/leaflet/dist/leaflet.css"/> 
 		{% endblock %}
 
 		{% block javascripts %}
 			{{ encore_entry_link_tags('app') }}
-		 	 <script src="/js/modernizr.js"></script>
+			 <script src="/js/modernizr.js"></script>
 			 <script src="/js/jquery-1.11.0.min.js"></script>
 			 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 			 <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 			 <script type="text/javascript" src="/js/plugins.js"></script>
 			 <script type="text/javascript" src="/js/script.js"></script>
+			<!--On charge Jquery depuis le CDN de google-->
+			 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+			<!-- Charger Leaflet pour l'affichage de la map-->
+			 <script type="text/javascript" src="//unpkg.com/leaflet/dist/leaflet.js"></script>
+			<!--On charge le widget mondial relay depuis leurs serveurs-->
+			 <script type="text/javascript" src="https://widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js"></script>
 		{% endblock %}
 	</head>
 	<body>
