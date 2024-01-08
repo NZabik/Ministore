@@ -6,8 +6,10 @@ use App\Entity\User;
 use App\Entity\Orders;
 use App\Form\AddressType;
 use App\Entity\OrdersDetails;
+use App\Form\OrderValidationType;
 use App\Repository\ItemRepository;
 use App\Repository\OrdersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,17 +35,24 @@ class OrdersController extends AbstractController
 
         // on rempli la commande
         $order->setUser($this->getUser());
-        $order->setReference(uniqid('order_'));
+        
         
         $userAdresse = $this->getUser()->getAdresse();
         $userCP = $this->getUser()->getCodePostal();
         $userVille = $this->getUser()->getVille();
+        // Gérer la soumission du formulaire de demande d'adresse
         $form = $this->createForm(AddressType::class, ['adresse' => $userAdresse, 'codePostal' => $userCP, 'ville' => $userVille, $order]);
-        // Gérez la soumission du formulaire
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            
+             // ajout de l'adresse complète à la commande depuis le formulaire 
+            $order->setAdresse($form->get('adresse')->getData());
+            $order->setCodePostal($form->get('codePostal')->getData());
+            $order->setVille($form->get('ville')->getData());
+            $order->setReference(uniqid('order_'));
             // Parcours du panier pour créer les détails de la commande
             foreach ($panier as $item => $quantity) {
                 $orderDetails = new OrdersDetails();
@@ -56,25 +65,40 @@ class OrdersController extends AbstractController
                 $orderDetails->setItem($product);
                 $orderDetails->setPrice($price);
                 $orderDetails->setQuantity($quantity);
-
                 $order->addOrdersDetail($orderDetails);
             }
-            //on persist et on flush    
-            $order->setAdresse($form->get('adresse')->getData());
-            $order->setCodePostal($form->get('codePostal')->getData());
-            $order->setVille($form->get('ville')->getData());
-            $em->persist($order);
-            $em->flush();
+            // ajout du formulaire de validation de la commande
+            // $form2 = $this->createForm(OrderValidationType::class, $order);
+            // $form2->handleRequest($request);
+            // if ($form2->isSubmitted() && $form2->isValid()) {
+            //     $order->setReference(uniqid('order_'));
+            //     //on persist et on flush 
+            //     $em->persist($order);
+            //     $em->flush();
+            //     //on vide le panier
+            //     $session->remove('panier');
 
-            //on vide le panier
-            $session->remove('panier');
+            //     $this->addFlash('message', 'Order passed successfully');
+                
+            //     return $this->redirectToRoute('app_orders_show');
+            
+            // }
+            // return $this->render('orders/validate.html.twig', [
+            //     'form2' => $form2->createView(),
+            //     'order' => $order
+            // ]);
+            // on persist et on flush 
+                $em->persist($order);
+                $em->flush();
+                //on vide le panier
+                $session->remove('panier');
 
-            $this->addFlash('message', 'Order passed successfully');
-
-            return $this->redirectToRoute('app_item_index');
+                $this->addFlash('message', 'Order passed successfully');
+                
+                return $this->redirectToRoute('app_orders_show');
         }
 
-        // Renvoyez le formulaire à la vue
+        
         return $this->render('orders/add.html.twig', [
             'form' => $form->createView(),
         ]);
