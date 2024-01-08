@@ -22,8 +22,9 @@
 								{{ user.codePostal }},
 								{{ user.ville }}</p>
 						</p>
-							<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-secondary mx-2">edit</a>
-							<a href="{{path('app_logout')}}" class="btn btn-warning mx-2">Logout</a>
+							<a href="{{ path('app_orders_show') }}" class="btn btn-primary mx-2">Orders</a>
+							<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-secondary mx-2">Edit</a>
+							<a href="{{ path('app_logout') }}" class="btn btn-warning mx-2">Logout</a>
 					</div>
 		</div>
 		<a href="{{path('home.index')}}" class="btn btn-primary">Back to home</a>

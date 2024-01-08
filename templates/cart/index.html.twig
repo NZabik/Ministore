@@ -11,11 +11,11 @@
 			{% if total != 0 %}
             <thead>
 				<tr>
-					<th colspan="2" class="text-center border">Product</th>
-					<th class="text-center border">Price</th>
-					<th class="text-center border">Quantity</th>
-					<th class="text-center border">Total</th>
-					<th class="text-center border">Action</th>
+					<th colspan="2" class="text-center border text-primary">Product</th>
+					<th class="text-center border text-primary">Price</th>
+					<th class="text-center border text-primary">Quantity</th>
+					<th class="text-center border text-primary">Total</th>
+					<th class="text-center border text-primary">Action</th>
 				</tr>
 			</thead>
             {% endif %}
@@ -45,7 +45,7 @@
             <td colspan="4" class="text-center border">Cart total:</td>
             <td class="text-center border">{{total}} $</td>
             <td class="text-center border d-flex justify-content-evenly">
-            <a href="#" class="btn btn-primary">Validate the cart</a>
+            <a href="{{ path('app_orders_add') }}" class="btn btn-primary">Validate the cart</a>
             <a href="{{ path('cart_empty') }}" class="btn btn-danger">Empty</a>
             </td>
             {% endif %}

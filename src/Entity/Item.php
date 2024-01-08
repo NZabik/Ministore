@@ -41,9 +41,13 @@ class Item
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: OrdersDetails::class)]
+    private Collection $ordersDetails;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->ordersDetails = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -142,6 +146,36 @@ class Item
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrdersDetails>
+     */
+    public function getOrdersDetails(): Collection
+    {
+        return $this->ordersDetails;
+    }
+
+    public function addOrdersDetail(OrdersDetails $ordersDetail): static
+    {
+        if (!$this->ordersDetails->contains($ordersDetail)) {
+            $this->ordersDetails->add($ordersDetail);
+            $ordersDetail->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersDetail(OrdersDetails $ordersDetail): static
+    {
+        if ($this->ordersDetails->removeElement($ordersDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersDetail->getItem() === $this) {
+                $ordersDetail->setItem(null);
+            }
+        }
 
         return $this;
     }
