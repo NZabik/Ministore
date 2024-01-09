@@ -46,10 +46,10 @@
 									{{ item.quantity }}</small>
 							</p>
 							<div>
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+								<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
 									Detailled description
 								</button>
-								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View and order</a>
+								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View and add to cart</a>
 							</div>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">

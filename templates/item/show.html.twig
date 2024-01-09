@@ -33,7 +33,12 @@
 									{{ item.quantity }}</small>
 							</p>
 							<div>
+							{% if item.quantity > 0 %}
 								<a href="{{ path('cart_add', {'id': item.id}) }}" class="btn btn-primary">Add to cart</a>
+								{% else %}
+								<p class="text-danger ">Sold Out !</p>
+							{% endif %}
+								
 							</div>
 						</div>
 					</div>
