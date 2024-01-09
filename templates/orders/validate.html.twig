@@ -7,7 +7,7 @@
 	<div class="container ">
 		<h1>Order validation</h1>
 		
-{{ form_start(form2) }}
+
 			<table class="table border border-primary border-2">
 				<thead class="">
 					<th class="text-center border table-secondary">Order Nb:</th>
@@ -42,17 +42,15 @@
 					</tr>
 					<tr>
 						<td class="text-center border fw-bold table-secondary">delivered to:</td>
-						<td colspan="3" class="text-center borderd table-secondary">{{order.adresse}},
+						<td colspan="3" class="text-center borderd table-secondary">{{order.user.nom}} {{order.user.prenom}}, {{order.adresse}},
 							{{order.codePostal}}
 							{{order.ville}}</td>
 					</tr>
 				</tfoot>
 			</table>
-		
-	
-	
+			{{ form_start(form) }}
 	<a href="{{path('cart_index')}}" class="btn btn-secondary my-4">Return to cart</a>
     <button type="submit" class="btn btn-primary my-4">Validate the order</button>
-	{{ form_end(form2) }}
+	{{ form_end(form) }}
     </div>
 {% endblock %}

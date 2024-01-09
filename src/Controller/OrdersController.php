@@ -35,72 +35,88 @@ class OrdersController extends AbstractController
 
         // on rempli la commande
         $order->setUser($this->getUser());
-        
-        
+        // Parcours du panier pour créer les détails de la commande
+        foreach ($panier as $item => $quantity) {
+            $orderDetails = new OrdersDetails();
+            //recherche produit
+            $product = $itemRepository->find($item);
+            $price = $product->getPrice();
+
+            //création des détails de la commande
+            $orderDetails->setItem($product);
+            $orderDetails->setPrice($price);
+            $orderDetails->setQuantity($quantity);
+            $order->addOrdersDetail($orderDetails);
+        }
+        // Adresses par défaut dans le compte client
         $userAdresse = $this->getUser()->getAdresse();
         $userCP = $this->getUser()->getCodePostal();
         $userVille = $this->getUser()->getVille();
-        // Gérer la soumission du formulaire de demande d'adresse
-        $form = $this->createForm(AddressType::class, ['adresse' => $userAdresse, 'codePostal' => $userCP, 'ville' => $userVille, $order]);
+        // soumission du formulaire de demande de confirmation de l'adresse de livraison
+        $form = $this->createForm(AddressType::class, ['adresse' => $userAdresse, 'codePostal' => $userCP, 'ville' => $userVille]);
         
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            
-             // ajout de l'adresse complète à la commande depuis le formulaire 
+             // ajout de l'adresse de livraison depuis le formulaire 
             $order->setAdresse($form->get('adresse')->getData());
             $order->setCodePostal($form->get('codePostal')->getData());
             $order->setVille($form->get('ville')->getData());
-            $order->setReference(uniqid('order_'));
-            // Parcours du panier pour créer les détails de la commande
-            foreach ($panier as $item => $quantity) {
-                $orderDetails = new OrdersDetails();
-
-                //recherche produit
-                $product = $itemRepository->find($item);
-                $price = $product->getPrice();
-
-                //création des détails de la commande
-                $orderDetails->setItem($product);
-                $orderDetails->setPrice($price);
-                $orderDetails->setQuantity($quantity);
-                $order->addOrdersDetail($orderDetails);
-            }
-            // ajout du formulaire de validation de la commande
-            // $form2 = $this->createForm(OrderValidationType::class, $order);
-            // $form2->handleRequest($request);
-            // if ($form2->isSubmitted() && $form2->isValid()) {
-            //     $order->setReference(uniqid('order_'));
-            //     //on persist et on flush 
-            //     $em->persist($order);
-            //     $em->flush();
-            //     //on vide le panier
-            //     $session->remove('panier');
-
-            //     $this->addFlash('message', 'Order passed successfully');
-                
-            //     return $this->redirectToRoute('app_orders_show');
             
-            // }
-            // return $this->render('orders/validate.html.twig', [
-            //     'form2' => $form2->createView(),
-            //     'order' => $order
-            // ]);
-            // on persist et on flush 
-                $em->persist($order);
-                $em->flush();
-                //on vide le panier
-                $session->remove('panier');
-
-                $this->addFlash('message', 'Order passed successfully');
-                
-                return $this->redirectToRoute('app_orders_show');
+            $session->set('order', $order);
+            return $this->redirectToRoute('app_orders_validate');
         }
 
-        
         return $this->render('orders/add.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+    // affichage de la commande avec le formulaire de validation finale
+    #[Route('/validate', name: 'validate')]
+    public function validate(Request $request, ItemRepository $itemRepository, EntityManagerInterface $em, SessionInterface $session): Response
+    {
+        // récupération de la commande en session
+        $order = $session->get('order');
+        // réatribution du user pour ne pas avoir un problème de persist double (seul moyen trouvé pour ça)
+        $order->setUser($this->getUser());
+        // récupération du panier en session
+        $panier = $session->get('panier', []);
+        // suppression des détails de la commande car sinon, problème de persist double
+        foreach($order->getOrdersDetails() as $orderDetails){
+            $order->removeOrdersDetail($orderDetails);
+        }
+        // Parcours du panier pour recréer les détails de la commande après avoir été supprimées à cause du persist double
+        foreach ($panier as $item => $quantity) {
+            $orderDetails = new OrdersDetails();
+            //recherche produit
+            $product = $itemRepository->find($item);
+            $price = $product->getPrice();
+
+            //création des détails de la commande
+            $orderDetails->setItem($product);
+            $orderDetails->setPrice($price);
+            $orderDetails->setQuantity($quantity);
+            $order->addOrdersDetail($orderDetails);
+        }
+        // création du formulaire de validation finale
+        $form = $this->createForm(OrderValidationType::class, $order);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order->setReference(uniqid('order_'));
+            //on persist et on flush 
+            $em->persist($order);
+            $em->flush();
+            //on vide le panier
+            $session->remove('panier');
+
+            $this->addFlash('message', 'Order passed successfully');
+            // on retourne sur la liste des commandes du client
+            return $this->redirectToRoute('app_orders_show');
+        
+        }
+        return $this->render('orders/validate.html.twig', [
+            'form' => $form->createView(),
+            'order' => $order
         ]);
     }
     #[Route('/', name: 'show')]

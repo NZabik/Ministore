@@ -169,6 +169,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+ * @return string|null
+ */
     public function getAdresse(): ?string
     {
         return $this->adresse;
