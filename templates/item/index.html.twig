@@ -7,7 +7,12 @@
 	<div class="merde"></div>
 	<div class="container">
 		<h1>Shop</h1>
-
+	{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
 		<div class="mx-2">
 			{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
 		</div>

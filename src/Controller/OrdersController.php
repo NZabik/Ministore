@@ -27,7 +27,7 @@ class OrdersController extends AbstractController
         $panier = $session->get('panier', []);
         // Si le panier est vide, retour sur le shop
         if ($panier === []) {
-            $this->addFlash('message', 'Your cart is empty');
+            $this->addFlash('error', 'Your cart is empty');
             return $this->redirectToRoute('app_item_index');
         }
         // Si le panier n'est pas vide, on crée la commande
@@ -48,7 +48,7 @@ class OrdersController extends AbstractController
             $orderDetails->setQuantity($quantity);
             $order->addOrdersDetail($orderDetails);
         }
-        // Adresses par défaut dans le compte client
+        // Adresses par défaut dans le compte client, erreurs affichées dans VSCode mais fonctionne quand même
         $userAdresse = $this->getUser()->getAdresse();
         $userCP = $this->getUser()->getCodePostal();
         $userVille = $this->getUser()->getVille();
@@ -64,6 +64,7 @@ class OrdersController extends AbstractController
             $order->setVille($form->get('ville')->getData());
             
             $session->set('order', $order);
+            $this->addFlash('success', 'Address confirmed successfully');
             return $this->redirectToRoute('app_orders_validate');
         }
 
@@ -92,6 +93,10 @@ class OrdersController extends AbstractController
             $product = $itemRepository->find($item);
             $price = $product->getPrice();
 
+            // Diminuer la quantité de l'item
+            $product->setQuantity($product->getQuantity() - $quantity);
+            $em->persist($product);
+
             //création des détails de la commande
             $orderDetails->setItem($product);
             $orderDetails->setPrice($price);
@@ -108,8 +113,8 @@ class OrdersController extends AbstractController
             $em->flush();
             //on vide le panier
             $session->remove('panier');
-
-            $this->addFlash('message', 'Order passed successfully');
+            $session->remove('order');
+            $this->addFlash('success', 'Order passed successfully');
             // on retourne sur la liste des commandes du client
             return $this->redirectToRoute('app_orders_show');
         
@@ -119,6 +124,17 @@ class OrdersController extends AbstractController
             'order' => $order
         ]);
     }
+    #[Route('/delete', name: 'delete')]
+    public function delete(Request $request, ItemRepository $itemRepository, EntityManagerInterface $em, SessionInterface $session): Response
+    {
+        $session->remove('panier');
+        $session->remove('order');
+        $this->addFlash('success', 'Order removed successfully');
+        // on redirige vers le panier
+        return $this->redirectToRoute('app_item_index');
+
+    }
+
     #[Route('/', name: 'show')]
     public function show(): Response
     {

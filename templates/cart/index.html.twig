@@ -7,50 +7,59 @@
 	<div class="merde"></div>
 	<div class="container">
 		<h1>Cart</h1>
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
 		<table class="table border border-dark border-2">
 			{% if total != 0 %}
-            <thead>
-				<tr>
-					<th colspan="2" class="text-center border text-primary">Product</th>
-					<th class="text-center border text-primary">Price</th>
-					<th class="text-center border text-primary">Quantity</th>
-					<th class="text-center border text-primary">Total</th>
-					<th class="text-center border text-primary">Action</th>
-				</tr>
-			</thead>
-            {% endif %}
+				<thead>
+					<tr>
+						<th colspan="2" class="text-center border text-primary">Product</th>
+						<th class="text-center border text-primary">Price</th>
+						<th class="text-center border text-primary">Quantity</th>
+						<th class="text-center border text-primary">Total</th>
+						<th class="text-center border text-primary">Action</th>
+					</tr>
+				</thead>
+			{% endif %}
 			<tbody>
 				{% for element in data %}
-                <tr>
-                <td class="text-center border"><img src="{{asset('/images/'~ element.product.picture) }}" class="object-fit-cover" style="width:50px" id="imgCard" alt="..."></td>
-                <td class="text-center border">{{element.product.name}}</td>
-                <td class="text-center border">{{element.product.price}} $</td>
-                <td class="text-center border">{{element.quantity}}</td>
-                <td class="text-center border">{{element.quantity * element.product.price}} $</td>
-                <td class="text-center border">
-                <a href="{{ path('cart_add', {'id': element.product.id}) }}" class="btn btn-success">+</a>
-                <a href="{{ path('cart_remove', {'id': element.product.id}) }}" class="btn btn-warning mx-1">-</a>
-                <a href="{{ path('cart_delete', {'id': element.product.id}) }}" class="btn btn-danger ms-3">delete</a>
-                </td>
-                </tr>
-                {% else %}
-                <tr>
-                <td colspan="6" class="text-center border">Your cart is empty</td>
-                </tr>
-                {% endfor %}
+					<tr>
+						<td class="text-center border"><img src="{{asset('/images/'~ element.product.picture) }}" class="object-fit-cover" style="width:50px" id="imgCard" alt="..."></td>
+						<td class="text-center border">{{element.product.name}}</td>
+						<td class="text-center border">{{element.product.price}}
+							$</td>
+						<td class="text-center border">{{element.quantity}}</td>
+						<td class="text-center border">{{element.quantity * element.product.price}}
+							$</td>
+						<td class="text-center border">
+							<a href="{{ path('cart_add', {'id': element.product.id}) }}" class="btn btn-success">+</a>
+							<a href="{{ path('cart_remove', {'id': element.product.id}) }}" class="btn btn-warning mx-1">-</a>
+							<a href="{{ path('cart_delete', {'id': element.product.id}) }}" class="btn btn-danger ms-3">delete</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6" class="text-center border">Your cart is empty</td>
+					</tr>
+				{% endfor %}
 			</tbody>
-            <tfoot>
-            <tr>
-            {% if total != 0 %}
-            <td colspan="4" class="text-center border">Cart total:</td>
-            <td class="text-center border">{{total}} $</td>
-            <td class="text-center border d-flex justify-content-evenly">
-            <a href="{{ path('app_orders_add') }}" class="btn btn-primary">Validate the cart</a>
-            <a href="{{ path('cart_empty') }}" class="btn btn-danger">Empty</a>
-            </td>
-            {% endif %}
-            </tr>
-            </tfoot>
+			<tfoot>
+				<tr>
+					{% if total != 0 %}
+						<td colspan="4" class="text-center border">Cart total:</td>
+						<td class="text-center border">{{total}}
+							$</td>
+						<td class="text-center border d-flex justify-content-evenly">
+							<a href="{{ path('app_orders_add') }}" class="btn btn-primary">Validate the cart</a>
+							<a href="{{ path('cart_empty') }}" class="btn btn-danger">Empty</a>
+						</td>
+					{% endif %}
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 {% endblock %}

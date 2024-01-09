@@ -39,9 +39,27 @@ class CartController extends AbstractController
         $panier = $session->get('panier', []);
         // on ajoute le produit dans le pannier s'il n'y est pas, ou sinon, on incrémente sa quantité
         if (empty($panier[$id])) {
-            $panier[$id] = 1;
+            // Vérifiez si la quantité demandée est disponible
+            if ($item->getQuantity() > 0) {
+                $panier[$id] = 1;
+                // Décrémentez la quantité de l'item
+                $item->setQuantity($item->getQuantity() - 1);
+            } else {
+                // Retournez un message d'erreur si la quantité demandée n'est pas disponible
+                $this->addFlash('error', 'The quantity asked is not available');
+                return $this->redirectToRoute('cart_index');
+            }
         } else {
-            $panier[$id]++;
+            // Si l'article est déjà dans le panier, incrémentez la quantité
+            if ($item->getQuantity() > $panier[$id]) {
+                $panier[$id]++;
+                // Décrémentez la quantité de l'item
+                $item->setQuantity($item->getQuantity() - 1);
+            } else {
+                // Retournez un message d'erreur si la quantité demandée n'est pas disponible
+                $this->addFlash('error', 'The quantity asked is not available');
+                return $this->redirectToRoute('cart_index');
+            }
         }
         $session->set('panier', $panier);
         // on redirige vers le panier
