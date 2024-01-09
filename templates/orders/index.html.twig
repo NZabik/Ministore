@@ -9,10 +9,12 @@
 		<h1>Orders</h1>
 				{% for order in orders %}
 					
-                    <table class="table border border-primary border-2">
+                    <table class="table border border-dark border-2">
                         <thead class="">
                         <th class="text-center border table-secondary">Order Nb:</th>
-                        <th colspan="3" class="text-center border table-secondary">{{order.reference}}</th>
+                        <th class="text-center border table-secondary">{{order.reference}}</th>
+                        <th class="text-center border table-secondary">Created at:</th>
+                        <th class="text-center border table-secondary">{{order.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</th>
                         <tr>
                         <th class="text-center border text-primary">Item</th>
                         <th class="text-center border text-primary">Quantity</th>
