@@ -6,9 +6,9 @@
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 		{% block stylesheets %}
-			<link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
-			<link rel="stylesheet" type="text/css" href="/styles/style.css">
-			<link rel="stylesheet" type="text/css" href="/styles/Style2.css">
+			<link rel="stylesheet" type="text/css" href="{{asset('/styles/bootstrap.min.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('/styles/style.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('/styles/Style2.css')}}">
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 			<link rel="preconnect" href="https://fonts.googleapis.com">
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,12 +18,12 @@
 
 		{% block javascripts %}
 			{{ encore_entry_link_tags('app') }}
-			 <script src="/js/modernizr.js"></script>
-			 <script src="/js/jquery-1.11.0.min.js"></script>
+			 <script src="{{asset('/js/modernizr.js')}}"></script>
+			 <script src="{{asset('/js/jquery-1.11.0.min.js')}}"></script>
 			 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-			 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-			 <script type="text/javascript" src="/js/plugins.js"></script>
-			 <script type="text/javascript" src="/js/script.js"></script>
+			 <script type="text/javascript" src="{{asset('/js/bootstrap.bundle.min.js')}}"></script>
+			 <script type="text/javascript" src="{{asset('/js/plugins.js')}}"></script>
+			 <script type="text/javascript" src="{{asset('/js/script.js')}}"></script>
 			<!--On charge Jquery depuis le CDN de google-->
 			 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 			<!-- Charger Leaflet pour l'affichage de la map-->

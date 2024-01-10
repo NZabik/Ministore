@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Item;
 use App\Entity\User;
+use App\Entity\Orders;
 use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,5 +35,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-users', User::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Item', 'fas fa-mobile-screen', Item::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Category', 'fas fa-layer-group', Category::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Orders', 'fas fa-wallet', Orders::class)->setDefaultSort(['id' => 'ASC']);
     }
 }

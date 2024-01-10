@@ -133,12 +133,18 @@ Accueil
 									<img src="{{asset('/images/'~ mobile.picture) }}" alt="product-item" class="img-fluid">
 								</div>
 								<div class="cart-concern position-absolute">
-									<div class="cart-button d-flex">
+									{% if mobile.quantity > 0 %}
+                  <div class="cart-button d-flex">
 										<a href="{{ path('cart_add', {'id': mobile.id}) }}" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline">
 												<use xlink:href="#cart-outline"></use>
 											</svg>
 										</a>
 									</div>
+                  {% else %}
+                  <div class="cart-button d-flex">
+										<div class="btn btn-medium btn-danger">Sold Out !</div>
+									</div>
+                  {% endif %}
 								</div>
 								<div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
 									<h3 class="card-title text-uppercase">
@@ -173,12 +179,18 @@ Accueil
 									<img src="{{asset('/images/'~ watch.picture) }}" alt="product-item" class="img-fluid">
 								</div>
 								<div class="cart-concern position-absolute">
-									<div class="cart-button d-flex">
+									{% if watch.quantity > 0 %}
+                  <div class="cart-button d-flex">
 										<a href="{{ path('cart_add', {'id': watch.id}) }}" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline">
 												<use xlink:href="#cart-outline"></use>
 											</svg>
 										</a>
 									</div>
+                  {% else %}
+                  <div class="cart-button d-flex">
+										<div class="btn btn-medium btn-danger">Sold Out !</div>
+									</div>
+                  {% endif %}
 								</div>
 								<div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
 									<h3 class="card-title text-uppercase">
