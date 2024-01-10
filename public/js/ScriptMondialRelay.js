@@ -29,6 +29,11 @@ $(document).ready(function () {
                                 $("#cb_CP").html(data.CP);
                                 $("#cb_Ville").html(data.Ville);
                                 $("#cb_Pays").html(data.Pays);
+                                // Mettez à jour les champs input avec les données du point relais sélectionné
+                                $('#address_adresse').val(data.Adresse1 + ' ' + data.Adresse2);
+                                $('#address_codePostal').val(data.CP);
+                                $('#address_ville').val(data.Ville);
+
                         }
         });
 });

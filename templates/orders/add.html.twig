@@ -9,47 +9,45 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
 <button type="submit" class="btn btn-primary my-4">Validate</button>
-
-<p class="MY-2 text-black">OR</p>
+{{ form_end(form) }}
+<p class="MY-2 text-black">Or select a Relay below to change the address and validate</p>
 
 <!-- Widget -->
     <div id="Zone_Widget"></div>
-    <!-- Parcelshop code -->
+    {# <!-- Parcelshop code -->
     <input type="hidden" id="ParcelShopCode" name="ParcelShopCode" />
-    <div style="padding:8px; overflow:auto;">
-      <div style="background:#edffb2; border:solid 1px #a5f913; padding:5px; font-family:verdana; font-size:10px;">
-        <em>Cette zone n'est pas située dans le Widget mais bien dans la page appelante.</em><br/><br/>
-        <div style="display:inline-block; vertical-align:top;">
+    <div style="padding:8px; overflow:auto;"> 
+        <div style="background:#edffb2; border:solid 1px #a5f913; padding:5px; font-family:verdana; font-size:10px;"> 
+           
+            <em>Cette zone n'est pas située dans le Widget mais bien dans la page appelante.</em><br/><br/> 
+               
+            <div style="display:inline-block; vertical-align:top;"> 
+   
+                <!-- La balise ayant pour Id "TargetDisplay_Widget" a été paramétrée pour reçevoir l'ID du Point Relais sélectionné --> 
+                Point Relais Selectionné : <input type="text" id="TargetDisplay_Widget"/><br/> 
+   
+                <!-- La balise ayant pour Id "Target_Widget" a été paramétrée pour reçevoir l'ID du Point Relais sélectionné --> 
+                Hidden : <input type="text" id="Target_Widget" /><br/> 
+   
+                <!-- La balise ayant pour Id "TargetDisplayInfoPR_Widget" a été paramétrée pour reçevoir l'adresse du Point Relais sélectionné --> 
+                InfosPR : <span id="TargetDisplayInfoPR_Widget" /> 
+   
+            </div> 
+               
+                         
+               
+            <div style="display:inline-block;"> 
+                <!-- Les balises suivantes sont utilisées dans la fonction de CallBack pour reçevoir des données à afficher --> 
+                <span style="font-weight:bold;text-decoration:underline;">Callback zone</span><br/> 
+                data.ID = <span id="cb_ID"></span><br/> 
+                data.Nom = <span id="cb_Nom"></span><br/> 
+                data.Adresse = <span id="cb_Adresse"></span><br/> 
+                data.CP = <span id="cb_CP"></span><br/> 
+                data.Ville = <span id="cb_Ville"></span><br/> 
+                data.Pays = <span id="cb_Pays"></span><br/> 
+            </div> 
+        </div> 
+    </div>   #}
 
-          <!-- La balise ayant pour id "TargetDisplay_Widget" a été paramétrée pour reçevoir 
-          l'ID du Point Relais sélectionné -->
-          Point Relais Selectionné : <input type="text" id="TargetDisplay_Widget" /><br/>
-
-          <!-- Balise HTML avec id "Target_Widget", paramétrée pour reçevoir l'ID 
-          du Point Relais sélectionné -->
-          Hidden : <input type="text" id="Target_Widget" /><br/>
-
-          <!--Balise HTML avec id "TargetDisplayInfoPR_Widget" paramétrée pour recevoir 
-          l'adresse du Point Relais sélectionné -->
-          InfosPR : <span id="TargetDisplayInfoPR_Widget"></span>
-
-        </div>
-
-        <hr />
-
-        <div style="display:inline-block;">
-          <!-- Balises HTML utilisées dans la fonction de CallBack pour reçevoir des données à afficher -->
-          <div style="font-weight:bold;text-decoration:underline;">Callback zone</div><br/> 
-          <div>data.ID = <span id="cb_ID"></span></div>
-          <div>data.Nom = <span id="cb_Nom"></span></div>
-          <div>data.Adresse = <span id="cb_Adresse"></span></div>
-          <div>data.CP = <span id="cb_CP"></span></div>
-          <div>data.Ville = <span id="cb_Ville"></span></div>
-          <div>data.Pays = <span id="cb_Pays"></span></div>
-        </div>
-      </div>
-    </div>
-{{ form_end(form) }}
-<script src="/js/ScriptMR.js"></script>
-
+<script src="/js/ScriptMondialRelay.js"></script>
 {% endblock %}

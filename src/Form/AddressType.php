@@ -16,7 +16,7 @@ class AddressType extends AbstractType
     {
         $builder
         ->add('adresse', TextType::class, [
-            'empty_data' => 'Adresse par défaut',
+            'mapped' => true,
             'attr' => [
                 'class' => 'form-control',
                 'minlenght' => 2,
@@ -32,6 +32,7 @@ class AddressType extends AbstractType
             ]
         ])
         ->add('codePostal', IntegerType::class, [
+            'mapped' => true,
             'attr' => [
                 'class' => 'form-control',
                 'minlenght' => 2,
@@ -47,6 +48,7 @@ class AddressType extends AbstractType
             ]
         ])
         ->add('ville', TextType::class, [
+            'mapped' => true,
             'attr' => [
                 'class' => 'form-control',
                 'minlenght' => 2,
