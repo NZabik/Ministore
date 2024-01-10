@@ -18,11 +18,16 @@
 		</div>
 	</div>
 	{% for item in items %}
-		<div class="container">
-			<div class="card mb-4" style="max-width: 50rem;">
+		<div class="container grid gap-2 column-gap-3 mt-4 d-flex flex-wrap">
+			{% if item.quantity == 0 %}
+			<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
+			{% else %}
+			<div class="card shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;">
+			{% endif %}
+			
 				<div class="row g-0">
 					<div class="col-md-4 d-flex justify-content-center">
-						<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+						<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
@@ -49,7 +54,11 @@
 								<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
 									Detailled description
 								</button>
+								{% if item.quantity == 0 %}
+								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View</a>
+								{% else %}
 								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View and add to cart</a>
+								{% endif %}
 							</div>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
