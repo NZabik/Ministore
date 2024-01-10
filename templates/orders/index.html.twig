@@ -43,12 +43,15 @@
                         <tfoot>
             <tr>
             <td class="text-center border text-primary fw-bold">Total:</td>
-            <td colspan="3" class="text-center border text-primary">{{ total }} $</td>
+            <td class="text-center border text-primary">{{ total }} $</td>
             </tr>
             <tr>
             <td class="text-center border fw-bold table-secondary">delivered to:</td>
-            <td colspan="3" class="text-center borderd table-secondary">{{order.user.nom}} {{order.user.prenom}}, {{order.adresse}}, {{order.codePostal}} {{order.ville}}</td>
+            <td class="text-center borderd table-secondary">{{order.user.nom}} {{order.user.prenom}}, {{order.adresse}}, {{order.codePostal}} {{order.ville}}</td>
+            <td class="text-center border fw-bold table-secondary">Billing informations:</td>
+            <td class="text-center borderd table-secondary">{{user.nom}} {{order.user.prenom}}, {{user.adresse}}, {{user.codePostal}} {{user.ville}}</td>
             </tr>
+            
             </tfoot>
                         </table>
                         {% else %}

@@ -141,7 +141,8 @@ class OrdersController extends AbstractController
         $user = $this->getUser();
         assert($user instanceof User);
         return $this->render('orders/index.html.twig', [
-            'orders' => $user->getOrders()
+            'orders' => $user->getOrders(),
+            'user' => $user
         ]);
     }
 }

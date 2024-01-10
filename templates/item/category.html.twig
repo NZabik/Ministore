@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block body %}
+	<div class="merde"></div>
+	<div class="container">
+		<h1>Shop</h1>
+	{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+		<div class="mx-2">
+			{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
+		</div>
+	</div>
+	{% for item in items %}
+		<div class="container grid gap-2 column-gap-3 mt-4 d-flex flex-wrap">
+			{% if item.quantity == 0 %}
+			<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
+			{% else %}
+			<div class="card shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;">
+			{% endif %}
+			
+				<div class="row g-0">
+					<div class="col-md-4 d-flex justify-content-center">
+						<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">{{ item.name }}</h5>
+
+							<p class="card-text">
+								<small class="text-info">Brand:
+									{{ item.brand }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-info">Category:
+									{{ item.category.type }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-danger">Price:
+									{{ item.price }}
+									$</small>
+							</p>
+							<p class="card-text">
+								<small class="text-secondary">Quantity:
+									{{ item.quantity }}</small>
+							</p>
+							<div>
+								<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+									Detailled description
+								</button>
+								{% if item.quantity == 0 %}
+								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View</a>
+								{% else %}
+								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View and add to cart</a>
+								{% endif %}
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header text-center">
+											<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body text-center">
+											<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+											<p class="card-text text-black">{{ item.description }}</p>
+										</div>
+										<div class="modal-footer">
+												</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<tr>
+		<td colspan="6">no records found</td>
+	</tr>
+{% endfor %}{% endblock %}

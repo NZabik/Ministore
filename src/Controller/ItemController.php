@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Item;
 use App\Form\ItemType;
 use App\Repository\ItemRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/item')]
 class ItemController extends AbstractController
@@ -78,4 +79,14 @@ class ItemController extends AbstractController
 
         return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/category/{categoryName}', name: 'app_item_category', methods: ['GET'])]
+public function showCategory(string $categoryName, ItemRepository $itemRepository, CategoryRepository $categoryRepository): Response
+{
+    $items = $itemRepository->findBy(['category' => $categoryName]);
+    return $this->render('item/category.html.twig', [
+        'items' => $items,
+        'categoryName' => $categoryName,
+        
+    ]);
+}
 }
