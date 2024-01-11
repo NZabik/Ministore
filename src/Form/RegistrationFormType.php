@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
@@ -39,7 +39,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('prenom', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
@@ -54,7 +54,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 180
                 ],
@@ -70,7 +70,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('adresse', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
@@ -85,7 +85,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('codePostal', IntegerType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 5
                 ],
@@ -100,7 +100,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('ville', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
@@ -117,7 +117,7 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => [
                     'attr' => [
-                        'class' => 'form-control',
+                        'class' => 'form-control rounded-0',
                     ],
                     'label' => 'Password',
                     'label_attr' => [
@@ -126,7 +126,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'second_options' => [
                     'attr' => [
-                        'class' => 'form-control',
+                        'class' => 'form-control rounded-0',
                     ],
                     'label' => 'Password confirmation',
                     'label_attr' => [

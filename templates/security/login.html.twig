@@ -3,7 +3,24 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" class="container position-absolute top-50 start-50 translate-middle">
+<section class="hero-section position-relative bg-light-blue padding-medium">
+		<div class="hero-content">
+			<div class="container">
+				<div class="row">
+					<div class="text-center padding-large no-padding-bottom">
+						<h1 class="display-2 text-uppercase text-dark">LOGIN</h1>
+						<div class="breadcrumbs">
+							<span class="item">
+								<a href="{{path('home.index')}}">Home ></a>
+							</span>
+							<span class="item">Login</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<form method="post" class="container mt-4">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -16,15 +33,15 @@
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control rounded-0" autocomplete="email" required autofocus>
     <label for="inputPassword"  class="mt-4">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <input type="password" name="password" id="inputPassword" class="form-control rounded-0" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
 
-    <button class="btn btn-lg btn-primary mt-4" type="submit">
+    <button class="btn btn-black text-uppercase btn-rounded-none mt-4" type="submit">
         Sign in
     </button>
 </form>
