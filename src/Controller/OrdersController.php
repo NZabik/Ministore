@@ -8,12 +8,13 @@ use App\Form\AddressType;
 use App\Entity\OrdersDetails;
 use App\Form\OrderValidationType;
 use App\Repository\ItemRepository;
-use App\Repository\OrdersRepository;
 use App\Repository\UserRepository;
+use App\Repository\OrdersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class OrdersController extends AbstractController
 {
     #[Route('/add', name: 'add')]
+    #[IsGranted('ROLE_USER')]
     public function add(SessionInterface $session, ItemRepository $itemRepository, EntityManagerInterface $em, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -54,15 +56,15 @@ class OrdersController extends AbstractController
         $userVille = $this->getUser()->getVille();
         // soumission du formulaire de demande de confirmation de l'adresse de livraison
         $form = $this->createForm(AddressType::class, ['adresse' => $userAdresse, 'codePostal' => $userCP, 'ville' => $userVille]);
-        
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             // ajout de l'adresse de livraison depuis le formulaire 
+            // ajout de l'adresse de livraison depuis le formulaire 
             $order->setAdresse($form->get('adresse')->getData());
             $order->setCodePostal($form->get('codePostal')->getData());
             $order->setVille($form->get('ville')->getData());
-            
+
             $session->set('order', $order);
             $this->addFlash('success', 'Address confirmed successfully');
             return $this->redirectToRoute('app_orders_validate');
@@ -74,6 +76,7 @@ class OrdersController extends AbstractController
     }
     // affichage de la commande avec le formulaire de validation finale
     #[Route('/validate', name: 'validate')]
+    #[IsGranted('ROLE_USER')]
     public function validate(Request $request, ItemRepository $itemRepository, EntityManagerInterface $em, SessionInterface $session): Response
     {
         // récupération de la commande en session
@@ -83,7 +86,7 @@ class OrdersController extends AbstractController
         // récupération du panier en session
         $panier = $session->get('panier', []);
         // suppression des détails de la commande car sinon, problème de persist double
-        foreach($order->getOrdersDetails() as $orderDetails){
+        foreach ($order->getOrdersDetails() as $orderDetails) {
             $order->removeOrdersDetail($orderDetails);
         }
         // Parcours du panier pour recréer les détails de la commande après avoir été supprimées à cause du persist double
@@ -117,7 +120,6 @@ class OrdersController extends AbstractController
             $this->addFlash('success', 'Order passed successfully');
             // on retourne sur la liste des commandes du client
             return $this->redirectToRoute('app_orders_show');
-        
         }
         return $this->render('orders/validate.html.twig', [
             'form' => $form->createView(),
@@ -125,6 +127,7 @@ class OrdersController extends AbstractController
         ]);
     }
     #[Route('/delete', name: 'delete')]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request, ItemRepository $itemRepository, EntityManagerInterface $em, SessionInterface $session): Response
     {
         $session->remove('panier');
@@ -132,10 +135,10 @@ class OrdersController extends AbstractController
         $this->addFlash('success', 'Order removed successfully');
         // on redirige vers le panier
         return $this->redirectToRoute('app_item_index');
-
     }
 
     #[Route('/', name: 'show')]
+    #[IsGranted('ROLE_USER')]
     public function show(): Response
     {
         $user = $this->getUser();
@@ -143,6 +146,18 @@ class OrdersController extends AbstractController
         return $this->render('orders/index.html.twig', [
             'orders' => $user->getOrders(),
             'user' => $user
+        ]);
+    }
+    #[Route('/admin/orders', name: 'admin')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function orders(OrdersRepository $orders, UserRepository $user): Response
+    {
+        $orders = $orders->findAll();
+        $users = $user->findAll();
+        return $this->render('admin/orders.html.twig', [
+            'orders' => $orders,
+            'users' => $users
+            
         ]);
     }
 }

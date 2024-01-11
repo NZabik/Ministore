@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section class="hero-section position-relative bg-light-blue padding-medium">
+      <div class="hero-content">
+        <div class="container">
+          <div class="row">
+            <div class="text-center padding-large no-padding-bottom">
+              <h1 class="display-2 text-uppercase text-dark">ORDERS</h1>
+              <div class="breadcrumbs">
+                <span class="item">
+                  <a href="{{path('admin')}}">ADMIN ></a>
+                </span>
+                <span class="item">Orders</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+{% for user in users %}
+<div class="container mt-2">
+<h1>{{user.nom}} {{user.prenom}}</h1>
+	{% for order in user.orders %}
+
+		<table class="table border border-dark border-2 mt-4">
+			<thead class="">
+				<th class="text-center fs-5 table-secondary">Order Nb:</th>
+				<th class="text-center fs-5 table-secondary">{{order.reference}}</th>
+				<th class="text-center fs-5 table-secondary">Created at:</th>
+				<th class="text-center fs-5 table-secondary">{{order.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</th>
+				<tr>
+					<th class="text-center fs-5">Item</th>
+					<th class="text-center fs-5">Quantity</th>
+					<th class="text-center fs-5">Price</th>
+					<th class="text-center fs-5">total per item</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% set total = 0 %}
+				{% for detail in order.ordersDetails %}
+					<tr>
+						<td class="text-center fs-5">{{ detail.item.name }}</td>
+						<td class="text-center fs-5">{{ detail.quantity }}
+							pcs</td>
+						<td class="text-center fs-5 text-primary">{{ detail.item.price }}
+							$</td>
+						<td class="text-center fs-5 text-primary">{{ detail.quantity * detail.item.price }}
+							$</td>
+					</tr>
+					{% set total = total + (detail.quantity * detail.item.price) %}
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class="text-center fs-5 fw-bold">Total:</td>
+					<td colspan="3" class="text-center fs-5 text-primary">{{ total }}
+						$</td>
+				</tr>
+				<tr>
+					<td class="text-center fw-bold table-secondary">delivered to:</td>
+					<td class="text-center table-secondary">{{order.user.nom}}
+						{{order.user.prenom}},
+						{{order.adresse}},
+						{{order.codePostal}}
+						{{order.ville}}</td>
+					<td class="text-center fw-bold table-secondary">Billing informations:</td>
+					<td class="text-center table-secondary">{{user.nom}}
+						{{user.prenom}},
+						{{user.adresse}},
+						{{user.codePostal}}
+						{{user.ville}}</td>
+				</tr>
+
+			</tfoot>
+		</table>
+{% else %}
+	</div>
+
+	<tr>
+		<div class="container mt-4">No orders passed</div>
+	</tr>
+
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

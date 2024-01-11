@@ -40,8 +40,9 @@
 					<a href="{{ path('app_orders_show') }}" class="btn btn-black text-uppercase btn-rounded-none mx-2">Orders</a>
 					<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-secondary text-uppercase btn-rounded-none mx-2">Edit</a>
 					<a href="{{ path('app_logout') }}" class="btn btn-warning text-uppercase btn-rounded-none mx-2">Logout</a>
+					{{ include('user/_delete_form.html.twig') }}
 					{% if is_granted('ROLE_ADMIN') %}
-						<a class="btn btn-danger text-uppercase btn-rounded-none mx-2" href="{{path('admin')}}">Admin dashboard</a>
+						<a class="btn btn-warning text-uppercase btn-rounded-none mx-2" href="{{path('admin')}}">Admin dashboard</a>
 					{% endif %}
 				</div>
 			</div>

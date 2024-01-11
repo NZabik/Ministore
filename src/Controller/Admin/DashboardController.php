@@ -10,12 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -35,6 +37,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-users', User::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Item', 'fas fa-mobile-screen', Item::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Category', 'fas fa-layer-group', Category::class)->setDefaultSort(['id' => 'ASC']);
-        yield MenuItem::linkToCrud('Orders', 'fas fa-wallet', Orders::class)->setDefaultSort(['id' => 'ASC']);
+        // yield MenuItem::linkToCrud('Orders', 'fas fa-shopping-cart', Orders::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linktoRoute('Orders', 'fas fa-shopping-cart', 'app_orders_admin');
     }
 }
