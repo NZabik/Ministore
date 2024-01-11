@@ -30,7 +30,10 @@
        <h3>or select a relay to change the address and validate</h3>
 			{{ form_start(form) }}
 			{{ form_widget(form) }}
-			<button type="submit" class="btn btn-black btn-medium text-uppercase me-2 btn-rounded-none mt-4">Validate</button>
+			<div class="d-flex justify-content-between">
+			<a href="{{path('cart_index')}}" class="btn btn-black btn-medium text-uppercase me-2 btn-rounded-none mt-4">Return to cart</a>
+			<button type="submit" class="btn btn-black btn-medium text-uppercase me-2 btn-rounded-none mt-4">Validate the adress</button>
+			</div>
 			{{ form_end(form) }}
 		</div>
 		<div class="ms-2">
