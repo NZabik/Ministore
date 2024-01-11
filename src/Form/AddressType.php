@@ -18,13 +18,13 @@ class AddressType extends AbstractType
         ->add('adresse', TextType::class, [
             'mapped' => true,
             'attr' => [
-                'class' => 'form-control',
+                'class' => 'form-control rounded-0',
                 'minlenght' => 2,
                 'maxlenght' => 255
             ],
             'label' => 'Address',
             'label_attr' => [
-                'class' => 'form-label mt-2',
+                'class' => 'form-label fs-5 mt-2',
             ],
             'constraints' => [
                 new Assert\Length(['min' => 2, 'max' => 255]),
@@ -34,13 +34,13 @@ class AddressType extends AbstractType
         ->add('codePostal', IntegerType::class, [
             'mapped' => true,
             'attr' => [
-                'class' => 'form-control',
+                'class' => 'form-control rounded-0',
                 'minlenght' => 2,
                 'maxlenght' => 5
             ],
             'label' => 'ZIP code',
             'label_attr' => [
-                'class' => 'form-label mt-2',
+                'class' => 'form-label fs-5 mt-2',
             ],
             'constraints' => [
                 new Assert\Length(['min' => 2, 'max' => 5]),
@@ -50,13 +50,13 @@ class AddressType extends AbstractType
         ->add('ville', TextType::class, [
             'mapped' => true,
             'attr' => [
-                'class' => 'form-control',
+                'class' => 'form-control rounded-0',
                 'minlenght' => 2,
                 'maxlenght' => 255
             ],
             'label' => 'Town',
             'label_attr' => [
-                'class' => 'form-label mt-2',
+                'class' => 'form-label fs-5 mt-2',
             ],
             'constraints' => [
                 new Assert\Length(['min' => 2, 'max' => 255]),

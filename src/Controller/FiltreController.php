@@ -34,7 +34,7 @@ class FiltreController extends AbstractController
                 'placeholder' => '',
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'text-info'
+                    'class' => 'rounded-0'
                 ]
             ])
             ->add('category', EntityType::class, [
@@ -44,12 +44,12 @@ class FiltreController extends AbstractController
                 'placeholder' => '',
                 'choice_label' => 'type',
                 'attr' => [
-                    'class' => 'text-info'
+                    'class' => 'rounded-0'
                 ]
             ])
             ->add('filter', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mb-2'
+                    'class' => 'btn btn-black text-uppercase btn-rounded-none mb-2'
                 ]
             ])
             ->getForm();

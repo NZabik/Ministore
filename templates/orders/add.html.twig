@@ -1,53 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Change or confirm address for shipment{% endblock %}
+{% block title %}Change or confirm address for shipment
+{% endblock %}
 {% block body %}
-<div class="merde"></div>
-<div class="container ">
-    <h1>Change or confirm address for shipment</h1>
-
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button type="submit" class="btn btn-primary my-4">Validate</button>
-{{ form_end(form) }}
-<p class="MY-2 text-black">Or select a relay below to change the address and validate</p>
-
-<!-- Widget -->
-    <div id="Zone_Widget"></div>
-    {# <!-- Parcelshop code -->
-    <input type="hidden" id="ParcelShopCode" name="ParcelShopCode" />
-    <div style="padding:8px; overflow:auto;"> 
-        <div style="background:#edffb2; border:solid 1px #a5f913; padding:5px; font-family:verdana; font-size:10px;"> 
-           
-            <em>Cette zone n'est pas située dans le Widget mais bien dans la page appelante.</em><br/><br/> 
-               
-            <div style="display:inline-block; vertical-align:top;"> 
-   
-                <!-- La balise ayant pour Id "TargetDisplay_Widget" a été paramétrée pour reçevoir l'ID du Point Relais sélectionné --> 
-                Point Relais Selectionné : <input type="text" id="TargetDisplay_Widget"/><br/> 
-   
-                <!-- La balise ayant pour Id "Target_Widget" a été paramétrée pour reçevoir l'ID du Point Relais sélectionné --> 
-                Hidden : <input type="text" id="Target_Widget" /><br/> 
-   
-                <!-- La balise ayant pour Id "TargetDisplayInfoPR_Widget" a été paramétrée pour reçevoir l'adresse du Point Relais sélectionné --> 
-                InfosPR : <span id="TargetDisplayInfoPR_Widget" /> 
-   
-            </div> 
-               
-                         
-               
-            <div style="display:inline-block;"> 
-                <!-- Les balises suivantes sont utilisées dans la fonction de CallBack pour reçevoir des données à afficher --> 
-                <span style="font-weight:bold;text-decoration:underline;">Callback zone</span><br/> 
-                data.ID = <span id="cb_ID"></span><br/> 
-                data.Nom = <span id="cb_Nom"></span><br/> 
-                data.Adresse = <span id="cb_Adresse"></span><br/> 
-                data.CP = <span id="cb_CP"></span><br/> 
-                data.Ville = <span id="cb_Ville"></span><br/> 
-                data.Pays = <span id="cb_Pays"></span><br/> 
-            </div> 
-        </div> 
-    </div>   #}
-
-<script src="/js/ScriptMondialRelay.js"></script>
+	<section class="hero-section position-relative bg-light-blue padding-medium">
+		<div class="hero-content">
+			<div class="container">
+				<div class="row">
+					<div class="text-center padding-large no-padding-bottom">
+						<h1 class="display-4 text-uppercase text-dark">Change or confirm address for shipment</h1>
+						<div class="breadcrumbs">
+							<span class="item">
+								<a href="{{path('home.index')}}">Home ></a>
+							</span>
+							<span class="item">
+								<a href="{{path('cart_index')}}">Cart ></a>
+							</span>
+						<span class="item">Shipment</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="container-fluid mt-2">
+	<div class="d-flex flex-row justify-content-center">
+		<div class="me-2">
+        <h3>Here you can change your delivery address</h3>
+       <h3>or select a relay to change the address and validate</h3>
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+			<button type="submit" class="btn btn-black btn-medium text-uppercase me-2 btn-rounded-none mt-4">Validate</button>
+			{{ form_end(form) }}
+		</div>
+		<div class="ms-2">
+			<!-- Widget -->
+			<div id="Zone_Widget"></div>
+			{# <!-- Parcelshop code -->
+					    <input type="hidden" id="ParcelShopCode" name="ParcelShopCode" />
+					    <div style="padding:8px; overflow:auto;"> 
+					        <div style="background:#edffb2; border:solid 1px #a5f913; padding:5px; font-family:verdana; font-size:10px;"> 
+					           
+					            <em>Cette zone n'est pas située dans le Widget mais bien dans la page appelante.</em><br/><br/> 
+					               
+					            <div style="display:inline-block; vertical-align:top;"> 
+					   
+					                <!-- La balise ayant pour Id "TargetDisplay_Widget" a été paramétrée pour reçevoir l'ID du Point Relais sélectionné --> 
+					                Point Relais Selectionné : <input type="text" id="TargetDisplay_Widget"/><br/> 
+					   
+					                <!-- La balise ayant pour Id "Target_Widget" a été paramétrée pour reçevoir l'ID du Point Relais sélectionné --> 
+					                Hidden : <input type="text" id="Target_Widget" /><br/> 
+					   
+					                <!-- La balise ayant pour Id "TargetDisplayInfoPR_Widget" a été paramétrée pour reçevoir l'adresse du Point Relais sélectionné --> 
+					                InfosPR : <span id="TargetDisplayInfoPR_Widget" /> 
+					   
+					            </div> 
+					               
+					                         
+					               
+					            <div style="display:inline-block;"> 
+					                <!-- Les balises suivantes sont utilisées dans la fonction de CallBack pour reçevoir des données à afficher --> 
+					                <span style="font-weight:bold;text-decoration:underline;">Callback zone</span><br/> 
+					                data.ID = <span id="cb_ID"></span><br/> 
+					                data.Nom = <span id="cb_Nom"></span><br/> 
+					                data.Adresse = <span id="cb_Adresse"></span><br/> 
+					                data.CP = <span id="cb_CP"></span><br/> 
+					                data.Ville = <span id="cb_Ville"></span><br/> 
+					                data.Pays = <span id="cb_Pays"></span><br/> 
+					            </div> 
+					        </div> 
+					    </div>   #}
+		</div>
+	</div>
+	 <script src="/js/ScriptMondialRelay.js"></script>
 {% endblock %}

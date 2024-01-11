@@ -4,88 +4,134 @@
 {% endblock %}
 
 {% block body %}
-	<div class="merde"></div>
+	<section class="hero-section position-relative bg-light-blue padding-medium">
+		<div class="hero-content">
+			<div class="container">
+				<div class="row">
+					<div class="text-center padding-large no-padding-bottom">
+						<h1 class="display-2 text-uppercase text-dark">Shop</h1>
+						<div class="breadcrumbs">
+							<span class="item">
+								<a href="{{path('home.index')}}">Home ></a>
+							</span>
+							<span class="item">Shop</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<div class="container">
-		<h1>Shop</h1>
-	{% for message in app.flashes('error') %}
+		{% for message in app.flashes('error') %}
 			<div class="alert alert-danger">{{ message }}</div>
 		{% endfor %}
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-		<div class="mx-2">
-			{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
-		</div>
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">{{ message }}</div>
+		{% endfor %}
 	</div>
-	{% for item in items %}
-		<div class="container grid gap-2 column-gap-3 mt-4 d-flex flex-wrap">
-			{% if item.quantity == 0 %}
-			<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
-			{% else %}
-			<div class="card shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;">
-			{% endif %}
-			
-				<div class="row g-0">
-					<div class="col-md-4 d-flex justify-content-center">
-						<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
-					</div>
-					<div class="col-md-8">
-						<div class="card-body">
-							<h5 class="card-title">{{ item.name }}</h5>
+	<div class="container grid gap-2 column-gap-3 d-flex flex-wrap">
+		{% for item in items %}
+			<div class="col">
+				{% if item.quantity == 0 %}
+					<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="min-width: 40rem; max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
+					{% else %}
+						<div class="card shadow p-3 bg-body-tertiary rounded" style="min-width: 40rem; max-width: 40rem;">
+						{% endif %}
 
-							<p class="card-text">
-								<small class="text-info">Brand:
-									{{ item.brand }}</small>
-							</p>
-							<p class="card-text">
-								<small class="text-info">Category:
-									{{ item.category.type }}</small>
-							</p>
-							<p class="card-text">
-								<small class="text-danger">Price:
-									{{ item.price }}
-									$</small>
-							</p>
-							<p class="card-text">
-								<small class="text-secondary">Quantity:
-									{{ item.quantity }}</small>
-							</p>
-							<div>
-								<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
-									Detailled description
-								</button>
-								{% if item.quantity == 0 %}
-								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View</a>
-								{% else %}
-								<a href="{{ path('app_item_show', {'id': item.id}) }}" class="btn btn-primary">View and add to cart</a>
-								{% endif %}
+						<div class="row g-0">
+							<div class="col-md-4 d-flex justify-content-center">
+								<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
 							</div>
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
-								<div class="modal-dialog modal-lg">
-									<div class="modal-content">
-										<div class="modal-header text-center">
-											<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
-											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body text-center">
-											<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
-											<p class="card-text text-black">{{ item.description }}</p>
-										</div>
-										<div class="modal-footer">
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">{{ item.name }}</h5>
+
+									<p class="card-text">
+										<small class="">Brand:
+											{{ item.brand }}</small>
+									</p>
+									<p class="card-text">
+										<small class="">Category:
+											{{ item.category.type }}</small>
+									</p>
+									<p class="card-text">
+										<small class="text-primary">Price:
+											{{ item.price }}
+											$</small>
+									</p>
+									<p class="card-text">
+										<small class="text-black">Quantity left:
+											{{ item.quantity }}</small>
+									</p>
+									<div>
+										{% if item.quantity > 0 %}
+											<button type="button" class="btn btn-black text-uppercase btn-rounded-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+												Details and add to cart
+											</button>
+										{% else %}
+											<button type="button" class="btn btn-black text-uppercase btn-rounded-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+												Details
+											</button>
+										{% endif %}
+									</div>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
+										<div class="modal-dialog modal-xl">
+											<div class="modal-content rounded-0">
+												<div class="modal-header text-center">
+													<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
+												<div class="modal-body row g-0">
+													<div class="col-md-4 d-flex justify-content-center">
+														<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
+													</div>
+													<div class="col-md-8">
+														<div class="card-body">
+															<p class="card-text">
+																<small class="">Brand:
+																	{{ item.brand }}</small>
+															</p>
+															<p class="card-text">
+																<small class="">Category:
+																	{{ item.category.type }}</small>
+															</p>
+															<p class="card-text">
+																<small class="text-black">Description:
+																	{{ item.description }}</small>
+															</p>
+															<p class="card-text">
+																<small class="text-primary">Price:
+																	{{ item.price }}
+																	$</small>
+															</p>
+															<p class="card-text">
+																<small class="text-black">Quantity left:
+																	{{ item.quantity }}</small>
+															</p>
+															<div>
+																{% if item.quantity > 0 %}
+																	<a href="{{ path('cart_add', {'id': item.id}) }}" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</a>
+																{% else %}
+																	<p class="text-danger ">Sold Out !</p>
+																{% endif %}
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</div>
-		</div>
+		{% else %}
+			<tr>
+				<td colspan="6">no records found</td>
+			</tr>
+		{% endfor %}
 	</div>
-{% else %}
-	<tr>
-		<td colspan="6">no records found</td>
-	</tr>
-{% endfor %}{% endblock %}
+	{% endblock %}

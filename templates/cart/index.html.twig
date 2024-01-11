@@ -4,62 +4,89 @@
 {% endblock %}
 
 {% block body %}
-	<div class="merde"></div>
-	<div class="container">
-		<h1>Cart</h1>
+	<section class="hero-section position-relative bg-light-blue padding-medium">
+      <div class="hero-content">
+        <div class="container">
+          <div class="row">
+            <div class="text-center padding-large no-padding-bottom">
+              <h1 class="display-2 text-uppercase text-dark">Cart</h1>
+              <div class="breadcrumbs">
+                <span class="item">
+                  <a href="{{path('home.index')}}">Home ></a>
+                </span>
+                <span class="item">Cart</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+	<div class="container mt-2">
 		{% for message in app.flashes('error') %}
 			<div class="alert alert-danger">{{ message }}</div>
 		{% endfor %}
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">{{ message }}</div>
         {% endfor %}
-		<table class="table border border-dark border-2">
+		<table class="table mt-2">
 			{% if total != 0 %}
 				<thead>
 					<tr>
-						<th colspan="2" class="text-center border text-primary">Product</th>
-						<th class="text-center border text-primary">Price</th>
-						<th class="text-center border text-primary">Quantity</th>
-						<th class="text-center border text-primary">Total</th>
-						<th class="text-center border text-primary">Action</th>
+						<th colspan="2" class="text-center text-dark fs-3">Product</th>
+						<th class="text-center text-dark fs-3">Price</th>
+						<th class="text-center text-dark fs-3">Quantity</th>
+						<th class="text-center text-dark fs-3">Subtotal</th>
+						<th class="text-center text-dark fs-3">Delete</th>
 					</tr>
 				</thead>
 			{% endif %}
 			<tbody>
 				{% for element in data %}
 					<tr>
-						<td class="text-center border"><img src="{{asset('/images/'~ element.product.picture) }}" class="object-fit-cover" style="width:50px" id="imgCard" alt="..."></td>
-						<td class="text-center border">{{element.product.name}}</td>
-						<td class="text-center border">{{element.product.price}}
+						<td class="text-center"><img src="{{asset('/images/'~ element.product.picture) }}" class="object-fit-cover" style="width:50px" id="imgCard" alt="..."></td>
+						<td class="text-center align-middle fs-4">{{element.product.name}}</td>
+						<td class="text-center text-primary  fs-4 align-middle">{{element.product.price}}
 							$</td>
-						<td class="text-center border">{{element.quantity}}</td>
-						<td class="text-center border">{{element.quantity * element.product.price}}
+						<td class="text-center  fs-4 align-middle">
+						<a href="{{ path('cart_add', {'id': element.product.id}) }}" class="btn mx-2 fs-3">+</a>
+						{{element.quantity}}
+						<a href="{{ path('cart_remove', {'id': element.product.id}) }}" class="btn mx-2 fs-3">-</a>
+						</td>
+						<td class="text-center text-primary  fs-4 align-middle">{{element.quantity * element.product.price}}
 							$</td>
-						<td class="text-center border">
-							<a href="{{ path('cart_add', {'id': element.product.id}) }}" class="btn btn-success">+</a>
-							<a href="{{ path('cart_remove', {'id': element.product.id}) }}" class="btn btn-warning mx-1">-</a>
-							<a href="{{ path('cart_delete', {'id': element.product.id}) }}" class="btn btn-danger ms-3">delete</a>
+						<td class="text-center  fs-4 align-middle">
+							<a href="{{ path('cart_delete', {'id': element.product.id}) }}" class="btn"><img src="{{asset('/images/cross-svgrepo-com.svg') }}" style="width:40px"></a>
 						</td>
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="6" class="text-center border">Your cart is empty</td>
+						<td colspan="6" class="text-center align-middle fs-1">Your cart is empty</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 			<tfoot>
-				<tr>
+				
 					{% if total != 0 %}
-						<td colspan="4" class="text-center border">Cart total:</td>
-						<td class="text-center border">{{total}}
+						<td colspan="3" class="text-center  fs-3 align-middle">Cart total:</td>
+						<td colspan="3" class="text-center text-primary fs-3 align-middle">{{total}}
 							$</td>
-						<td class="text-center border d-flex justify-content-evenly">
-							<a href="{{ path('app_orders_add') }}" class="btn btn-primary">Validate the cart</a>
-							<a href="{{ path('cart_empty') }}" class="btn btn-danger">Empty</a>
+						
+					
+				
+				</tfoot>
+				</table>
+				<table class="table">
+				
+				<td class="text-center d-flex justify-content-start align-middle">
+							<a href="{{ path('cart_empty') }}" class="btn btn-danger btn-medium text-uppercase me-2  btn-rounded-none">Empty the cart</a>
+							<a href="{{ path('app_item_index') }}" class="btn btn-black btn-medium text-uppercase me-2  btn-rounded-none">Continue shopping</a>
+							<a href="{{ path('app_orders_add') }}" class="btn btn-black btn-medium text-uppercase me-2  btn-rounded-none">Validate and go to shipment</a>
+
 						</td>
-					{% endif %}
-				</tr>
-			</tfoot>
+						
+				
+			
+			{% endif %}
 		</table>
 	</div>
 {% endblock %}

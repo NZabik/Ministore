@@ -3,9 +3,30 @@
 {% block title %}Order validation
 {% endblock %}
 {% block body %}
-	<div class="merde"></div>
-	<div class="container ">
-		<h1>Order validation</h1>
+	<section class="hero-section position-relative bg-light-blue padding-medium">
+      <div class="hero-content">
+        <div class="container">
+          <div class="row">
+            <div class="text-center padding-large no-padding-bottom">
+              <h1 class="display-2 text-uppercase text-dark">Order validation</h1>
+              <div class="breadcrumbs">
+							<span class="item">
+								<a href="{{path('home.index')}}">Home ></a>
+							</span>
+							<span class="item">
+								<a href="{{path('cart_index')}}">Cart ></a>
+							</span>
+							<span class="item">
+								<a href="{{path('app_orders_add')}}">Shipment ></a>
+							</span>
+						<span class="item">Order validation</span>
+					</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+	<div class="container mt-2">
 		{% for message in app.flashes('error') %}
 			<div class="alert alert-danger">{{ message }}</div>
 		{% endfor %}
@@ -13,27 +34,27 @@
 			<div class="alert alert-success">{{ message }}</div>
 		{% endfor %}
 
-		<table class="table border border-dark border-2">
+		<table class="table border border-dark border-2 mt-2">
 			<thead class="">
-				<th class="text-center border table-secondary">Order Nb:</th>
-				<th colspan="3" class="text-center border table-secondary">{{order.reference}}</th>
+				<th class="text-center border table-secondary fs-5">Order Nb:</th>
+				<th colspan="3" class="text-center border table-secondary fs-5"></th>
 				<tr>
-					<th class="text-center border text-primary">Item</th>
-					<th class="text-center border text-primary">Quantity</th>
-					<th class="text-center border text-primary">Price</th>
-					<th class="text-center border text-primary">total per item</th>
+					<th class="text-center fs-5">Product</th>
+					<th class="text-center fs-5">Quantity</th>
+					<th class="text-center fs-5">Price</th>
+					<th class="text-center fs-5">total per item</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% set total = 0 %}
 				{% for detail in order.ordersDetails %}
 					<tr>
-						<td class="text-center border">{{ detail.item.name }}</td>
-						<td class="text-center border">{{ detail.quantity }}
+						<td class="text-center fs-5">{{ detail.item.name }}</td>
+						<td class="text-center fs-5">{{ detail.quantity }}
 							pcs</td>
-						<td class="text-center border">{{ detail.item.price }}
+						<td class="text-center text-primary fs-5">{{ detail.item.price }}
 							$</td>
-						<td class="text-center border">{{ detail.quantity * detail.item.price }}
+						<td class="text-center text-primary fs-5">{{ detail.quantity * detail.item.price }}
 							$</td>
 					</tr>
 					{% set total = total + (detail.quantity * detail.item.price) %}
@@ -41,13 +62,13 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="text-center border text-primary fw-bold">Total:</td>
-					<td colspan="3" class="text-center border text-primary">{{ total }}
+					<td class="text-center  fs-5">Total:</td>
+					<td colspan="3" class="text-center text-primary fs-5">{{ total }}
 						$</td>
 				</tr>
 				<tr>
-					<td class="text-center border fw-bold table-secondary">delivered to:</td>
-					<td colspan="3" class="text-center borderd table-secondary">{{order.user.nom}}
+					<td class="text-center fw-bold table-secondary fs-5">delivered to:</td>
+					<td colspan="3" class="text-center table-secondary fs-5">{{order.user.nom}}
 						{{order.user.prenom}},
 						{{order.adresse}},
 						{{order.codePostal}}
@@ -58,11 +79,11 @@
 		{{ form_start(form) }}
 		<div class="d-flex justify-content-between">
 			<div>
-				<a href="{{path('cart_index')}}" class="btn btn-secondary my-4">Return to cart</a>
+				<a href="{{path('cart_index')}}" class="btn btn-black btn-medium text-uppercase me-2 btn-rounded-none mt-4">Return to cart</a>
 			</div>
 			<div>
-				<a href="{{path('app_orders_delete')}}" class="btn btn-danger my-4 mx-2">Delete the order</a>
-				<button type="submit" class="btn btn-primary my-4">Validate the order</button>
+				<a href="{{path('app_orders_delete')}}" class="btn btn-danger btn-medium text-uppercase me-2 btn-rounded-none mt-4">Delete the order</a>
+				<button type="submit" class="btn btn-black btn-medium text-uppercase ms-2 btn-rounded-none mt-4">Validate the order</button>
 			</div>
 		</div>
 		{{ form_end(form) }}
