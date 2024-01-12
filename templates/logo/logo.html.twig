@@ -1,3 +1,5 @@
 {% if logo %}
     <img src="{{ asset('images/logo/' ~ logo.name) }}" alt="Logo" style="height:48px;">
+    {% else %}
+    <img src="{{asset('/images/main-logo.png')}}" alt="Logo" style="height:48px;">
 {% endif %}
