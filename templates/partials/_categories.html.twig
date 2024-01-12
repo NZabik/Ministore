@@ -1,0 +1,5 @@
+{% for category in categories %}
+	<li>
+		<a href="{{ path('app_item_category', {'categoryName': category.id}) }}" class="dropdown-item">{{category.type}}</a>
+	</li>
+{% endfor %}

@@ -72,10 +72,7 @@
         spaceBetween: 10,
         pagination: {
           el: '#swiper-pagination-' + i,
-        },
-        navigation: {
-          nextEl: '#swiper-button-next-' + i,
-          prevEl: '#swiper-button-prev-' + i,
+          clickable: true,
         },
         breakpoints: {
           0: {

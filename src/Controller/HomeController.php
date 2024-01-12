@@ -20,11 +20,7 @@ class HomeController extends AbstractController
     {
         $item = $itemRepository->findAll();
         $category = $categoryRepository->findAll();
-        $mobiles = $itemRepository->findBy(['category' => 1]);
-        $watches = $itemRepository->findBy(['category' => 2]);
         return $this->render('pages/home.html.twig', [
-            'mobiles' => $mobiles,
-            'watches' => $watches,
             'items' => $item,
             'categories' => $category
         ]);

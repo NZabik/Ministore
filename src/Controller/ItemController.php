@@ -87,9 +87,12 @@ class ItemController extends AbstractController
 public function showCategory(string $categoryName, ItemRepository $itemRepository, CategoryRepository $categoryRepository): Response
 {
     $items = $itemRepository->findBy(['category' => $categoryName]);
+    $category = $categoryRepository->find($categoryName);
+    $categoryName = $category->getType();
     return $this->render('item/category.html.twig', [
         'items' => $items,
         'categoryName' => $categoryName,
+        'category' => $category,
         
     ]);
 }

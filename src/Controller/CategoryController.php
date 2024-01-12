@@ -16,10 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'app_category_index', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function index(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('category/index.html.twig', [
+        return $this->render('partials/_categories.html.twig', [
             'categories' => $categoryRepository->findAll(),
         ]);
     }

@@ -30,16 +30,12 @@
 								<li>
 									<a href="{{ path('app_item_index') }}" class="dropdown-item">All products</a>
 								</li>
-								<li>
-									<a href="{{ path('app_item_category', {'categoryName': '1'}) }}" class="dropdown-item">Mobiles</a>
-								</li>
-								<li>
-									<a href="{{ path('app_item_category', {'categoryName': '2'}) }}" class="dropdown-item">Watches</a>
-								</li>
-								<li>
+								{{ render(controller(
+        'App\\Controller\\CategoryController::index'
+ )) }}
 							</ul>
 						</li>
-						
+
 						<li class="nav-item">
 							<a class="nav-link me-4" href="{{path('home.index')}}#yearly-sale">Sale</a>
 						</li>
@@ -106,6 +102,7 @@
 													<use xlink:href="#user"></use>
 												</svg>
 											</a>
+										</li>
 									</li>
 									<li>
 										<a href="{{path('cart_index')}}">
@@ -233,3 +230,4 @@
 
 		</div>
 	</div>
+</body>
