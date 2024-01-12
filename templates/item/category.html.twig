@@ -111,7 +111,10 @@
 															</p>
 															<div>
 																{% if item.quantity > 0 %}
-																	<a href="{{ path('cart_add', {'id': item.id}) }}" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</a>
+																	<form action="{{ path('cart_add', {'id': item.id}) }}" method="post">
+																		<input type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1" class="rounded-0">
+																		<button type="submit" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</button>
+																	</form>
 																{% else %}
 																	<p class="text-danger ">Sold Out !</p>
 																{% endif %}

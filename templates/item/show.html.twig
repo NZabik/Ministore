@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item{% endblock %}
+{% block title %}Item
+{% endblock %}
 
 {% block body %}
-<div class="merde"></div>
-<div class="container">
-<h1>{{ item.name }}</h1>
-			{% if item.quantity == 0 %}
+	<div class="merde"></div>
+	<div class="container">
+		<h1>{{ item.name }}</h1>
+		{% if item.quantity == 0 %}
 			<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
 			{% else %}
-			<div class="card shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;">
-			{% endif %}
+				<div class="card shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;">
+				{% endif %}
 				<div class="row g-0">
 					<div class="col-md-4 d-flex justify-content-center">
 						<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
@@ -37,12 +38,15 @@
 									{{ item.quantity }}</small>
 							</p>
 							<div>
-							{% if item.quantity > 0 %}
-								<a href="{{ path('cart_add', {'id': item.id}) }}" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</a>
+								{% if item.quantity > 0 %}
+									<form action="{{ path('cart_add', {'id': item.id}) }}" method="post">
+										<input type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1" class="rounded-0">
+										<button type="submit" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</button>
+									</form>
 								{% else %}
-								<p class="text-danger ">Sold Out !</p>
-							{% endif %}
-								
+									<p class="text-danger ">Sold Out !</p>
+								{% endif %}
+
 							</div>
 						</div>
 					</div>
@@ -50,8 +54,6 @@
 			</div>
 		</div>
 	</div>
-
-
 
 
 {% endblock %}

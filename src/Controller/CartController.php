@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Item;
 use App\Repository\ItemRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -31,7 +32,7 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', compact('data', 'total'));
     }
     #[Route('/add/{id}', name: 'add')]
-    public function add(Item $item, SessionInterface $session)
+    public function add(Item $item, SessionInterface $session, Request $request)
     {
         // on récupère l'ID produit
         $id = $item->getId();
@@ -41,9 +42,9 @@ class CartController extends AbstractController
         if (empty($panier[$id])) {
             // Vérifiez si la quantité demandée est disponible
             if ($item->getQuantity() > 0) {
-                $panier[$id] = 1;
-                // Décrémentez la quantité de l'item
-                $item->setQuantity($item->getQuantity() - 1);
+                $quantity = $request->request->getInt('quantity', 1);
+                $panier[$id] = $quantity;
+                
             } else {
                 // Retournez un message d'erreur si la quantité demandée n'est pas disponible
                 $this->addFlash('error', 'The quantity asked is not available');
@@ -53,8 +54,6 @@ class CartController extends AbstractController
             // Si l'article est déjà dans le panier, incrémentez la quantité
             if ($item->getQuantity() > $panier[$id]) {
                 $panier[$id]++;
-                // Décrémentez la quantité de l'item
-                $item->setQuantity($item->getQuantity() - 1);
             } else {
                 // Retournez un message d'erreur si la quantité demandée n'est pas disponible
                 $this->addFlash('error', 'The quantity asked is not available');
