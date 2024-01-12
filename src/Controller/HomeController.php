@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LogoRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +16,17 @@ class HomeController extends AbstractController
     // {
     //     return $this->render('pages/home.html.twig');
     // }
-    public function index(ItemRepository $itemRepository): Response
+    public function index(ItemRepository $itemRepository, CategoryRepository $categoryRepository): Response
     {
+        $item = $itemRepository->findAll();
+        $category = $categoryRepository->findAll();
         $mobiles = $itemRepository->findBy(['category' => 1]);
         $watches = $itemRepository->findBy(['category' => 2]);
         return $this->render('pages/home.html.twig', [
             'mobiles' => $mobiles,
-            'watches' => $watches
+            'watches' => $watches,
+            'items' => $item,
+            'categories' => $category
         ]);
     }
     #[Route('/logo/{id}', name: 'render_logo')]
