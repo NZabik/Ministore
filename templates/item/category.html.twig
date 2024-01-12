@@ -21,7 +21,7 @@
 			</div>
 		</div>
 	</section>
-	<div class="container">
+	<div class="container mt-2">
 		{% for message in app.flashes('error') %}
 			<div class="alert alert-danger">{{ message }}</div>
 		{% endfor %}
@@ -29,7 +29,7 @@
 			<div class="alert alert-success">{{ message }}</div>
 		{% endfor %}
 	</div>
-	<div class="container grid gap-2 column-gap-3 d-flex flex-wrap">
+	<div class="container grid gap-2 column-gap-3 d-flex flex-wrap mt-2">
 		{% for item in items %}
 			<div class="col">
 				{% if item.quantity == 0 %}

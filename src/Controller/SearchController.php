@@ -27,13 +27,13 @@ class SearchController extends AbstractController
             ->add('query', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control rounded-0',
-                    'placeholder' => 'Search an article'
+                    'class' => 'btn btn-black rounded-0',
+                    'placeholder' => 'Search a product'
                 ]
             ])
             ->add('search', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-black text-uppercase btn-rounded-none'
+                    'class' => 'btn btn-black text-uppercase btn-rounded-none',
                 ]
             ])
             ->getForm();

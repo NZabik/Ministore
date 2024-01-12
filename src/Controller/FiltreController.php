@@ -31,20 +31,20 @@ class FiltreController extends AbstractController
                 'class' => Item::class,
                 'required' => false,
                 'label' => 'Article',
-                'placeholder' => '',
+                'placeholder' => 'Product',
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'rounded-0'
+                    'class' => 'btn btn-black rounded-0 mb-2'
                 ]
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'required' => false,
                 'label' => 'Category',
-                'placeholder' => '',
+                'placeholder' => 'Category',
                 'choice_label' => 'type',
                 'attr' => [
-                    'class' => 'rounded-0'
+                    'class' => 'btn btn-black rounded-0 mb-2'
                 ]
             ])
             ->add('filter', SubmitType::class, [
