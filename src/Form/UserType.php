@@ -20,7 +20,7 @@ class UserType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
@@ -35,7 +35,7 @@ class UserType extends AbstractType
             ])
             ->add('prenom', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 50
                 ],
@@ -49,7 +49,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'form-control rounded-0'],
                 'label' => 'Actual password',
                 'label_attr' => ['class' => 'form-label mt-2'],
                 'constraints' => [new Assert\NotBlank]
@@ -58,12 +58,12 @@ class UserType extends AbstractType
             ->add('newPassword', RepeatedType::class,[
                 'type'=>PasswordType::class,
                 'first_options'=>[
-                    'attr' => ['class' => 'form-control'],
+                    'attr' => ['class' => 'form-control rounded-0'],
                     'label'=>'New password',
                     'label_attr' => ['class' => 'form-label mt-2'],
                 ],
                 'second_options'=>[
-                    'attr' => ['class' => 'form-control'],
+                    'attr' => ['class' => 'form-control rounded-0'],
                     'label'=>'New password confirmation',
                     'label_attr' => ['class' => 'form-label mt-2'],
                 ],
@@ -71,7 +71,7 @@ class UserType extends AbstractType
             ])
             ->add('adresse', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],
@@ -86,7 +86,7 @@ class UserType extends AbstractType
             ])
             ->add('codePostal', IntegerType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 5
                 ],
@@ -101,7 +101,7 @@ class UserType extends AbstractType
             ])
             ->add('ville', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control rounded-0',
                     'minlenght' => 2,
                     'maxlenght' => 255
                 ],

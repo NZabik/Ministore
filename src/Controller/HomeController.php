@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ItemRepository;
+use App\Repository\LogoRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,5 +24,13 @@ class HomeController extends AbstractController
             'watches' => $watches
         ]);
     }
+    #[Route('/logo/{id}', name: 'render_logo')]
+    public function renderLogo(int $id, LogoRepository $logoRepository): Response
+    {
+        $logo = $logoRepository->find($id);
+
+        return $this->render('logo/logo.html.twig', [
+            'logo' => $logo,
+        ]);
+    }
 }
-?>

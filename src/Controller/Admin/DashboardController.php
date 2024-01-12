@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Item;
+use App\Entity\Logo;
 use App\Entity\User;
 use App\Entity\Orders;
 use App\Entity\Category;
@@ -37,7 +38,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-users', User::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Item', 'fas fa-mobile-screen', Item::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Category', 'fas fa-layer-group', Category::class)->setDefaultSort(['id' => 'ASC']);
-        // yield MenuItem::linkToCrud('Orders', 'fas fa-shopping-cart', Orders::class)->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linktoRoute('Orders', 'fas fa-shopping-cart', 'app_orders_admin');
+        yield MenuItem::linktoCrud('Logo', 'fas fa-image', Logo::class);
     }
 }
