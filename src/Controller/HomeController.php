@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use App\Repository\CategoryRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LogoRepository;
+use App\Repository\PagesRepository;
+use App\Repository\NavbarRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +34,22 @@ class HomeController extends AbstractController
 
         return $this->render('logo/logo.html.twig', [
             'logo' => $logo,
+        ]);
+    }
+    #[Route('/navbar', name: 'navbar')]
+    public function navbar(NavbarRepository $navbarRepository): Response
+    {
+        $navbar = $navbarRepository->findAll();
+        return $this->render('partials/_navbar.html.twig', [
+            'navbars' => $navbar
+        ]);
+    }
+    #[Route('/pages', name: 'navbar')]
+    public function pages(PagesRepository $pagesRepository): Response
+    {
+        $pages = $pagesRepository->findAll();
+        return $this->render('partials/_pages.html.twig', [
+            'pages' => $pages
         ]);
     }
 }

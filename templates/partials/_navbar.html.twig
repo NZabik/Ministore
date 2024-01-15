@@ -1,0 +1,5 @@
+{% for navbar in navbars %}
+	<li class="nav-item">
+		<a class="nav-link me-4 active" href="{{path(navbar.route)}}{{navbar.link}}">{{navbar.buttons}}</a>
+	</li>
+{% endfor %}

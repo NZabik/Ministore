@@ -18,12 +18,9 @@
 				</div>
 				<div class="offcanvas-body">
 					<ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
-						<li class="nav-item">
-							<a class="nav-link me-4 active" href="{{path('home.index')}}#billboard">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link me-4" href="{{path('home.index')}}#company-services">Services</a>
-						</li>
+						{{ render(controller(
+        'App\\Controller\\HomeController::navbar'
+ )) }}
 						<li class="nav-item dropdown">
 							<a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Products</a>
 							<ul class="dropdown-menu">
@@ -34,13 +31,6 @@
         'App\\Controller\\CategoryController::index'
  )) }}
 							</ul>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link me-4" href="{{path('home.index')}}#yearly-sale">Sale</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link me-4" href="{{path('home.index')}}#latest-blog">Blog</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link me-4" href="{{path('app_register')}}">Register</a>
@@ -56,30 +46,9 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
 							<ul class="dropdown-menu">
-								<li>
-									<a href="#" class="dropdown-item">About</a>
-								</li>
-								<li>
-									<a href="#" class="dropdown-item">Blog</a>
-								</li>
-								<li>
-									<a href="{{path('app_item_index')}}" class="dropdown-item">Shop</a>
-								</li>
-								<li>
-									<a href="{{path('cart_index')}}" class="dropdown-item">Cart</a>
-								</li>
-								<li>
-									<a href="#" class="dropdown-item">Checkout</a>
-								</li>
-								<li>
-									<a href="#" class="dropdown-item">Single Post</a>
-								</li>
-								<li>
-									<a href="#" class="dropdown-item">Single Product</a>
-								</li>
-								<li>
-									<a href="#" class="dropdown-item">Contact</a>
-								</li>
+								{{ render(controller(
+        'App\\Controller\\HomeController::pages'
+ )) }}
 							</ul>
 						</li>
 						<li class="nav-item">
