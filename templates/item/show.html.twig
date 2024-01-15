@@ -28,7 +28,7 @@
 		{% if item.quantity == 0 %}
 			<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
 			{% else %}
-				<div class="card shadow p-3 bg-body-tertiary rounded" style="max-width: 40rem;">
+				<div class="card shadow p-3 bg-body-tertiary rounded" style="">
 				{% endif %}
 				<div class="row g-0">
 					<div class="col-md-4 d-flex justify-content-center">
@@ -45,6 +45,10 @@
 							<p class="card-text">
 								<small class="text-info">Category:
 									{{ item.category.type }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-black">Description:
+									{{ item.description }}</small>
 							</p>
 							<p class="card-text">
 								<small class="text-danger">Price:
