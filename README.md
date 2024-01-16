@@ -102,6 +102,8 @@ The admin panel allows the admin to :
     - the categories
     - the website logo
     - the navbar buttons
+ ![Alt text](<Capture d'écran 2024-01-16 132209.png>)
  ![Alt text](<Capture d'écran 2024-01-16 131423.png>)
+ ![Alt text](<Capture d'écran 2024-01-16 132309.png>)
 
 
