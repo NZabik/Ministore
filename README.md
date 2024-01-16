@@ -14,6 +14,7 @@
       - [7. Order validation page](#7-order-validation-page)
       - [8. account information](#8-account-information)
       - [9. header](#9-header)
+      - [10. Admin panel](#10-admin-panel)
 
 ## GITHUB copy
 If you want to clone this repository in your GITHUB account, you can do it in your GIT terminal.
@@ -81,7 +82,24 @@ Here you can edit your credentials, view your orders, log out and delete your ac
 
 #### 9. header
 
-The header can be modified with the admin panel:
 ![Alt text](<Capture d'écran 2024-01-16 115951.png>)
 
+You can search any products with a fragment of it's name in the search bar.
+
+The header can be modified with the admin panel
+
+#### 10. Admin panel
+
+![Alt text](<Capture d'écran 2024-01-16 131138.png>)
+
+The admin panel allows the admin to view:
+- the users
+- all the orders from the users
+
+to add, edit, delete:
+- the products
+- the categories
+- the website logo
+- the navbar buttons
+ ![Alt text](<Capture d'écran 2024-01-16 131423.png>)
 
