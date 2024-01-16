@@ -55,7 +55,7 @@ This page display the products and their availability:
 ![Alt text](<Capture d'écran 2024-01-16 113923.png>)
 and view the details and add to cart with the desired quantity:
 ![Alt text](<Capture d'écran 2024-01-16 114015.png>)
-On the shop page, you can view a filter to filter your view.
+On the shop page, you can find a filter to filter your view.
 
 #### 5. Cart page
 
