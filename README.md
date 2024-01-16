@@ -102,4 +102,5 @@ to add, edit, delete:
 - the website logo
 - the navbar buttons
  ![Alt text](<Capture d'écran 2024-01-16 131423.png>)
+ 
 
