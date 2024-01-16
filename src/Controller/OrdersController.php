@@ -80,7 +80,13 @@ class OrdersController extends AbstractController
                 $user->setFavVille($form->get('ville')->getData());
                 $em->persist($user);
                 $em->flush();
-                return $this->redirectToRoute('app_orders_add');
+                $order->setAdresse($form->get('adresse')->getData());
+                $order->setCodePostal($form->get('codePostal')->getData());
+                $order->setVille($form->get('ville')->getData());
+    
+                $session->set('order', $order);
+                $this->addFlash('success', 'Address confirmed successfully');
+                return $this->redirectToRoute('app_orders_validate');
             }
             
         }
