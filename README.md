@@ -92,15 +92,16 @@ The header can be modified with the admin panel
 
 ![Alt text](<Capture d'écran 2024-01-16 131138.png>)
 
-The admin panel allows the admin to view:
-- the users
-- all the orders from the users
+The admin panel allows the admin to :
+- view:
+    - the users
+    - all the orders from the users
 
-to add, edit, delete:
-- the products
-- the categories
-- the website logo
-- the navbar buttons
+- add, edit, delete:
+    - the products
+    - the categories
+    - the website logo
+    - the navbar buttons
  ![Alt text](<Capture d'écran 2024-01-16 131423.png>)
- 
+
 
