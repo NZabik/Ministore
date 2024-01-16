@@ -70,6 +70,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Orders::class)]
     private Collection $orders;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $favAdresse = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $favCodePostal = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $favVille = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -289,6 +298,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFavAdresse(): ?string
+    {
+        return $this->favAdresse;
+    }
+
+    public function setFavAdresse(?string $favAdresse): static
+    {
+        $this->favAdresse = $favAdresse;
+
+        return $this;
+    }
+
+    public function getFavCodePostal(): ?int
+    {
+        return $this->favCodePostal;
+    }
+
+    public function setFavCodePostal(?int $favCodePostal): static
+    {
+        $this->favCodePostal = $favCodePostal;
+
+        return $this;
+    }
+
+    public function getFavVille(): ?string
+    {
+        return $this->favVille;
+    }
+
+    public function setFavVille(?string $favVille): static
+    {
+        $this->favVille = $favVille;
 
         return $this;
     }

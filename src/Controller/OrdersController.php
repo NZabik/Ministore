@@ -54,12 +54,16 @@ class OrdersController extends AbstractController
         $userAdresse = $this->getUser()->getAdresse();
         $userCP = $this->getUser()->getCodePostal();
         $userVille = $this->getUser()->getVille();
+        $favAdresse = $this->getUser()->getFavAdresse();
+        $favCP = $this->getUser()->getFavCodePostal();
+        $favVille = $this->getUser()->getFavVille();
         // soumission du formulaire de demande de confirmation de l'adresse de livraison
-        $form = $this->createForm(AddressType::class, ['adresse' => $userAdresse, 'codePostal' => $userCP, 'ville' => $userVille]);
+        $form = $this->createForm(AddressType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($request->request->has('save')) {
             // ajout de l'adresse de livraison depuis le formulaire 
             $order->setAdresse($form->get('adresse')->getData());
             $order->setCodePostal($form->get('codePostal')->getData());
@@ -68,10 +72,27 @@ class OrdersController extends AbstractController
             $session->set('order', $order);
             $this->addFlash('success', 'Address confirmed successfully');
             return $this->redirectToRoute('app_orders_validate');
+            } elseif ($request->request->has('save_as_favorite')) {
+                $user = $this->getUser();
+                // Enregistrer l'adresse comme favorite
+                $user->setFavAdresse($form->get('adresse')->getData());
+                $user->setFavCodePostal($form->get('codePostal')->getData());
+                $user->setFavVille($form->get('ville')->getData());
+                $em->persist($user);
+                $em->flush();
+                return $this->redirectToRoute('app_orders_add');
+            }
+            
         }
 
         return $this->render('orders/add.html.twig', [
             'form' => $form->createView(),
+            'favAdresse' => $favAdresse,
+            'favCP' => $favCP,
+            'favVille' => $favVille,
+            'userAdresse' => $userAdresse,
+            'userCP' => $userCP,
+            'userVille' => $userVille,
         ]);
     }
     // affichage de la commande avec le formulaire de validation finale
