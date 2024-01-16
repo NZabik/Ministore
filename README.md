@@ -66,7 +66,7 @@ The cart page allows the possibility to modify the desired quantity, return to s
 
 The sipment page allows you to select your personal adress, a favorite adress if it exists, select a relay, or type manually another adress.
 You can either add the adress you want to favorite and validate the cart:
-![Alt text](<Capture d'écran 2024-01-16 111806.png>)
+![Alt text](<Capture d'écran 2024-01-16 134902.png>)
 
 #### 7. Order validation page
 
