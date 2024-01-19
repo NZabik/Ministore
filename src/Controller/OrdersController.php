@@ -50,13 +50,15 @@ class OrdersController extends AbstractController
             $orderDetails->setQuantity($quantity);
             $order->addOrdersDetail($orderDetails);
         }
-        // Adresses par défaut dans le compte client, erreurs affichées dans VSCode mais fonctionne quand même
-        $userAdresse = $this->getUser()->getAdresse();
-        $userCP = $this->getUser()->getCodePostal();
-        $userVille = $this->getUser()->getVille();
-        $favAdresse = $this->getUser()->getFavAdresse();
-        $favCP = $this->getUser()->getFavCodePostal();
-        $favVille = $this->getUser()->getFavVille();
+        // Adresses par défaut dans le compte client.
+        $user = $this->getUser();
+        assert($user instanceof User);
+        $userAdresse = $user->getAdresse();
+        $userCP = $user->getCodePostal();
+        $userVille = $user->getVille();
+        $favAdresse = $user->getFavAdresse();
+        $favCP = $user->getFavCodePostal();
+        $favVille = $user->getFavVille();
         // soumission du formulaire de demande de confirmation de l'adresse de livraison
         $form = $this->createForm(AddressType::class);
 
@@ -64,7 +66,7 @@ class OrdersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($request->request->has('save')) {
-            // ajout de l'adresse de livraison depuis le formulaire 
+            // ajout de l'adresse de livraison depuis le formulaire et passer à la validation
             $order->setAdresse($form->get('adresse')->getData());
             $order->setCodePostal($form->get('codePostal')->getData());
             $order->setVille($form->get('ville')->getData());
@@ -74,7 +76,8 @@ class OrdersController extends AbstractController
             return $this->redirectToRoute('app_orders_validate');
             } elseif ($request->request->has('save_as_favorite')) {
                 $user = $this->getUser();
-                // Enregistrer l'adresse comme favorite
+                assert($user instanceof User);
+                // Enregistrer l'adresse comme favorite et passer à la validation
                 $user->setFavAdresse($form->get('adresse')->getData());
                 $user->setFavCodePostal($form->get('codePostal')->getData());
                 $user->setFavVille($form->get('ville')->getData());
