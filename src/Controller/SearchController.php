@@ -31,11 +31,11 @@ class SearchController extends AbstractController
                     'placeholder' => 'Search a product'
                 ]
             ])
-            ->add('search', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-black text-uppercase btn-rounded-none',
-                ]
-            ])
+            // ->add('search', SubmitType::class, [
+            //     'attr' => [
+            //         'class' => 'btn btn-black text-uppercase btn-rounded-none',
+            //     ]
+            // ])
             ->getForm();
         return $this->render('search/searchBar.html.twig', [
             'form' => $form->createView()
