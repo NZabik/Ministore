@@ -138,7 +138,7 @@
 												{% if item.quantity > 0 %}
 													<div class="cart-button d-flex">
 														<form action="{{ path('cart_add', {'id': item.id}) }}" method="post">
-															<input class="btn btn-black" type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1">
+															<input class="btn btn-black" type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1" style="height:47.73px;">
 															<button type="submit" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline">
 																	<use xlink:href="#cart-outline"></use>
 																</svg>
