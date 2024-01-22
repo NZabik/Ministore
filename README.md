@@ -78,7 +78,8 @@ The order validation page display the order resume and allows you validate or no
 You can access your account informations, from the header.
 Here you can edit your credentials, view your orders, log out and delete your account.
 ![Alt text](<Capture d'écran 2024-01-16 115819.png>)
-![Alt text](<Capture d'écran 2024-01-16 115913.png>)
+![Alt text](<Capture d'écran 2024-01-22 141102.png>)
+![Alt text](<Capture d'écran 2024-01-22 141114.png>)
 
 #### 9. header
 
