@@ -78,13 +78,13 @@ body {
   font-weight: 500;
   line-height: 1.6;
   margin: 0;
-  cursor: url(../images/normal-select.cur), auto;
+  cursor: url(../images/Pulse_Glass.cur), auto;
 }
 .btn:hover {
-  cursor: url(../images/link-select.cur), pointer;
+  cursor: url(../images/Pulse_Glass_Link.cur), pointer;
 }
 .link:hover {
-  cursor: url(../images/link-select.cur), pointer;
+  cursor: url(../images/Pulse_Glass_Link.cur), pointer;
 }
 
 p {
@@ -105,7 +105,7 @@ a.light {
 a:hover {
   text-decoration: none;
   color: var(--primary-color);
-  cursor: url(../images/link-select.cur), pointer;
+  cursor: url(../images/Pulse_Glass_Link.cur), pointer;
 }
 
 /*------------ Background Color -----------*/
