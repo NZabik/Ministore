@@ -27,7 +27,7 @@ class SearchController extends AbstractController
             ->add('query', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'btn btn-black rounded-0',
+                    'class' => 'form-control rounded-0',
                     'placeholder' => 'Search a product'
                 ]
             ])
