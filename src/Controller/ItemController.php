@@ -17,10 +17,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ItemController extends AbstractController
 {
     #[Route('/', name: 'app_item_index', methods: ['GET'])]
-    public function index(ItemRepository $itemRepository): Response
+    public function index(ItemRepository $itemRepository, Request $request): Response
     {
+        $sort = $request->query->get('sort', 'asc');
+        $items = $itemRepository->createQueryBuilder('i')
+            ->orderBy('i.name', $sort)
+            ->getQuery()
+            ->getResult();
         return $this->render('item/index.html.twig', [
-            'items' => $itemRepository->findAll(),
+            'items' => $items,
+            'sort' => $sort,
         ]);
     }
 
@@ -76,7 +82,7 @@ class ItemController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Item $item, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $item->getId(), $request->request->get('_token'))) {
             $entityManager->remove($item);
             $entityManager->flush();
         }
@@ -84,16 +90,16 @@ class ItemController extends AbstractController
         return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/category/{categoryName}', name: 'app_item_category', methods: ['GET'])]
-public function showCategory(string $categoryName, ItemRepository $itemRepository, CategoryRepository $categoryRepository): Response
-{
-    $items = $itemRepository->findBy(['category' => $categoryName]);
-    $category = $categoryRepository->find($categoryName);
-    $categoryName = $category->getType();
-    return $this->render('item/category.html.twig', [
-        'items' => $items,
-        'categoryName' => $categoryName,
-        'category' => $category,
-        
-    ]);
-}
+    public function showCategory(string $categoryName, ItemRepository $itemRepository, CategoryRepository $categoryRepository): Response
+    {
+        $items = $itemRepository->findBy(['category' => $categoryName]);
+        $category = $categoryRepository->find($categoryName);
+        $categoryName = $category->getType();
+        return $this->render('item/category.html.twig', [
+            'items' => $items,
+            'categoryName' => $categoryName,
+            'category' => $category,
+
+        ]);
+    }
 }

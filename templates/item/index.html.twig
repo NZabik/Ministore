@@ -28,8 +28,13 @@
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">{{ message }}</div>
 		{% endfor %}
-		<div class="mx-2">
+		<div class="mx-2 d-flex">
 			{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
+			{% set oppositeSort = sort == 'asc' ? 'desc' : 'asc' %}
+			{% set svgPath = sort == 'asc' ? '/images/descend-svgrepo-com.svg' : '/images/ascend-svgrepo-com.svg' %}
+			<a href="{{ path('app_item_index', {'sort': oppositeSort}) }}" class="btn border btn-rounded-none mx-1 mb-2">
+				<img src="{{ svgPath }}" alt="" width="20" height="20">
+			</a>
 		</div>
 	</div>
 	<div class="container grid gap-2 column-gap-3 d-flex flex-wrap">
