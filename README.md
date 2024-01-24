@@ -52,10 +52,10 @@ The login page allows you to log into your account
 #### 4. Product page
 
 This page display the products and their availability:
-![Alt text](<Capture d'écran 2024-01-16 113923.png>)
-and view the details and add to cart with the desired quantity:
+![Alt text](<Capture d'écran 2024-01-24 151308.png>)
+you can view the details and add the product to cart with the desired quantity:
 ![Alt text](<Capture d'écran 2024-01-16 114015.png>)
-On the shop page, you can find a filter to filter your view.
+On the shop page, you can find a filter to filter your view and you can change the order of the products by ascending or descending name.
 
 #### 5. Cart page
 
@@ -80,13 +80,14 @@ Here you can edit your credentials, view your orders, log out and delete your ac
 ![Alt text](<Capture d'écran 2024-01-16 115819.png>)
 ![Alt text](<Capture d'écran 2024-01-22 141102.png>)
 ![Alt text](<Capture d'écran 2024-01-22 141114.png>)
+In the deteilled view of an order, you can click on the product name to go to the product page.
 
 #### 9. header
 
-![Alt text](<Capture d'écran 2024-01-16 115951.png>)
+![Alt text](<Capture d'écran 2024-01-24 151826.png>)
 
-You can search any products with a fragment of it's name in the search bar.
-
+You can search any products with a fragment of it's name in the search bar in a modal.
+![Alt text](<Capture d'écran 2024-01-24 151212.png>)
 The header can be modified with the admin panel
 
 #### 10. Admin panel
