@@ -39,63 +39,67 @@
 			<div class="modal fade" id="exampleModal{{order.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{order.id}}" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-xl">
 					<div class="modal-content rounded-0">
-          <div class="modal-header text-center">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">{{order.reference}}</h1>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-              <div class="modal-body row g-0">
-						<table class="table border border-dark border-2 mt-4">
-							<thead class="">
-								<th class="text-center fs-5 table-secondary">Order Nb:</th>
-								<th class="text-center fs-5 table-secondary">{{order.reference}}</th>
-								<th class="text-center fs-5 table-secondary">Created at:</th>
-								<th class="text-center fs-5 table-secondary">{{order.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</th>
-								<tr>
-									<th class="text-center fs-5">Item</th>
-									<th class="text-center fs-5">Quantity</th>
-									<th class="text-center fs-5">Price</th>
-									<th class="text-center fs-5">total per item</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% set total = 0 %}
-								{% for detail in order.ordersDetails %}
+						<div class="modal-header text-center">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">{{order.reference}}</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body row g-0">
+							<table class="table border border-dark border-2 mt-4">
+								<thead class="">
+									<th class="text-center fs-5 table-secondary">Order Nb:</th>
+									<th class="text-center fs-5 table-secondary">{{order.reference}}</th>
+									<th class="text-center fs-5 table-secondary">Created at:</th>
+									<th class="text-center fs-5 table-secondary">{{order.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</th>
 									<tr>
-										<td class="text-center fs-5">{{ detail.item.name }}</td>
-										<td class="text-center fs-5">{{ detail.quantity }}
-											pcs</td>
-										<td class="text-center fs-5 text-primary">{{ detail.item.price }}
-											$</td>
-										<td class="text-center fs-5 text-primary">{{ detail.quantity * detail.item.price }}
+										<th class="text-center fs-5">Item</th>
+										<th class="text-center fs-5">Quantity</th>
+										<th class="text-center fs-5">Price</th>
+										<th class="text-center fs-5">total per item</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% set total = 0 %}
+									{% for detail in order.ordersDetails %}
+										<tr>
+											<td class="text-center fs-5">
+												<a href="{{ path('app_item_show', {'id': detail.item.id}) }}">
+													{{ detail.item.name }}
+												</a>
+											</td>
+											<td class="text-center fs-5">{{ detail.quantity }}
+												pcs</td>
+											<td class="text-center fs-5 text-primary">{{ detail.item.price }}
+												$</td>
+											<td class="text-center fs-5 text-primary">{{ detail.quantity * detail.item.price }}
+												$</td>
+										</tr>
+										{% set total = total + (detail.quantity * detail.item.price) %}
+									{% endfor %}
+								</tbody>
+								<tfoot>
+									<tr>
+										<td class="text-center fs-5 fw-bold">Total:</td>
+										<td colspan="3" class="text-center fs-5 text-primary">{{ total }}
 											$</td>
 									</tr>
-									{% set total = total + (detail.quantity * detail.item.price) %}
-								{% endfor %}
-							</tbody>
-							<tfoot>
-								<tr>
-									<td class="text-center fs-5 fw-bold">Total:</td>
-									<td colspan="3" class="text-center fs-5 text-primary">{{ total }}
-										$</td>
-								</tr>
-								<tr>
-									<td class="text-center fw-bold table-secondary">delivered to:</td>
-									<td class="text-center table-secondary">{{order.user.nom}}
-										{{order.user.prenom}},
-										{{order.adresse}},
-										{{order.codePostal}}
-										{{order.ville}}</td>
-									<td class="text-center fw-bold table-secondary">Billing informations:</td>
-									<td class="text-center table-secondary">{{user.nom}}
-										{{user.prenom}},
-										{{user.adresse}},
-										{{user.codePostal}}
-										{{user.ville}}</td>
-								</tr>
+									<tr>
+										<td class="text-center fw-bold table-secondary">delivered to:</td>
+										<td class="text-center table-secondary">{{order.user.nom}}
+											{{order.user.prenom}},
+											{{order.adresse}},
+											{{order.codePostal}}
+											{{order.ville}}</td>
+										<td class="text-center fw-bold table-secondary">Billing informations:</td>
+										<td class="text-center table-secondary">{{user.nom}}
+											{{user.prenom}},
+											{{user.adresse}},
+											{{user.codePostal}}
+											{{user.ville}}</td>
+									</tr>
 
-							</tfoot>
-						</table>
-            </div>
+								</tfoot>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
