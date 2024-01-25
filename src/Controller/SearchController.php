@@ -13,10 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SearchController extends AbstractController
 {
     #[Route('/search', name: 'app_search')]
-    public function index(): Response
+    public function index(Request $request, ItemRepository $item): Response
     {
+        $query = $request->query->get('query', '');
+        $sort = $request->query->get('sort', 'desc');
+        $items = $item->findArticlesByName($query, $sort);
         return $this->render('search/index.html.twig', [
             'controller_name' => 'SearchController',
+            'items' => $items,
+            'query' => $query,
+            'sort' => $sort,
         ]);
     }
 
@@ -43,20 +49,26 @@ class SearchController extends AbstractController
     }
 
 
-/**
+    /**
      * @Route("/handleSearch", name="handleSearch")
      * @param Request $request
      */
     #[Route('/handleSearch', name: 'handleSearch')]
     public function handleSearch(Request $request, ItemRepository $item)
     {
-        $query = $request->request->all('form')['query'];
-        if($query) {
-            $items = $item->findArticlesByName($query);
+        $session = $request->getSession();
+        if ($request->isMethod('POST')) {
+            $query = $request->request->all('form')['query'];
+            $session->set('query', $query);
+        } else {
+            $query = $session->get('query');
         }
+        $sort = $request->query->get('sort', 'ASC');
+        $items = $item->findArticlesByName($query, $sort);
         return $this->render('search/index.html.twig', [
-            'items' => $items
+            'items' => $items,
+            'sort' => $sort,
+            'query' => $query
         ]);
     }
-
 }

@@ -21,7 +21,7 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
     // Find/search articles by title/content
-    public function findArticlesByName(string $query)
+    public function findArticlesByName(string $query, $sort)
     {
         $qb = $this->createQueryBuilder('c');
         if ($query) {
@@ -29,7 +29,7 @@ class ItemRepository extends ServiceEntityRepository
                 ->setParameter('term', '%' . $query . '%');
         }
         return $qb
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.name', $sort)
             ->getQuery()
             ->getResult()
         ;
