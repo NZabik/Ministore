@@ -90,16 +90,17 @@ class ItemController extends AbstractController
         return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/category/{categoryName}', name: 'app_item_category', methods: ['GET'])]
-    public function showCategory(string $categoryName, ItemRepository $itemRepository, CategoryRepository $categoryRepository): Response
+    public function showCategory(string $categoryName, ItemRepository $itemRepository, CategoryRepository $categoryRepository, Request $request): Response
     {
-        $items = $itemRepository->findBy(['category' => $categoryName]);
+        $sort = $request->query->get('sort', 'asc');
+        $items = $itemRepository->findBy(['category' => $categoryName], ['name' => $sort]);
         $category = $categoryRepository->find($categoryName);
         $categoryName = $category->getType();
         return $this->render('item/category.html.twig', [
             'items' => $items,
             'categoryName' => $categoryName,
             'category' => $category,
-
+            'sort' => $sort,
         ]);
     }
 }
