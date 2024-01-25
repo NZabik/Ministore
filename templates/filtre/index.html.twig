@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-<section class="hero-section position-relative bg-light-blue padding-medium">
+	<section class="hero-section position-relative bg-light-blue padding-medium">
 		<div class="hero-content">
 			<div class="container">
 				<div class="row">
@@ -21,113 +21,132 @@
 			</div>
 		</div>
 	</section>
-	{% if app.request.method == 'POST' %}
-
-		{% if items | length == 0 %}
-			<div class="container">
-				<h3>No results for your filter.</h3>
-				<div class="mx-2">
-					{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
-				</div>
+	{% if items | length == 0 %}
+		<div class="container">
+			<h3 class="mt-3">No results for your filter.</h3>
+			<div class="mx-2">
+				{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
 			</div>
-		{% else %}
-			<div class="container">
-				<h3 class="mt-3">Your filter results :</h3>
-				<div class="mx-2">
-					{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
-				</div>
+		</div>
+	{% else %}
+		<div class="container">
+			{% if product == "" %}
+				<h3 class="mt-3">Your filter results for
+					"{{category}}"
+					:</h3>
+			{% elseif category == "" %}
+				<h3 class="mt-3">Your filter results for
+					"{{product}}"
+					:</h3>
+			{% else %}
+				<h3 class="mt-3">Your filter results for
+					"{{product}}"
+					and
+					"{{category}}"
+					:</h3>
+			{% endif %}
+
+			<div class="mx-2 d-flex">
+				{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
+				{% set oppositeSort = sort == 'desc' ? 'asc' : 'desc' %}
+				{% set svgPath = sort == 'desc' ? '/images/ascend-svgrepo-com.svg' : '/images/descend-svgrepo-com.svg' %}
+				<a href="{{ path('filterSearchAll', {'query': query,'query2': query2, 'sort': oppositeSort}) }}" class="btn border btn-rounded-none mx-1 mb-2">
+					<img src="{{ svgPath }}" alt="" width="20" height="20">
+				</a>
 			</div>
-			<div class="container grid gap-2 column-gap-3 d-flex flex-wrap">
-		{% for item in items %}
-			<div class="col">
-				{% if item.quantity == 0 %}
-					<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="min-width: 40rem; max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
-					{% else %}
-						<div class="card shadow p-3 bg-body-tertiary rounded" style="min-width: 40rem; max-width: 40rem;">
-						{% endif %}
+		</div>
+		<div class="container grid gap-2 column-gap-3 d-flex flex-wrap">
+			{% for item in items %}
+				<div class="col">
+					{% if item.quantity == 0 %}
+						<div class="card card-background shadow p-3 bg-body-tertiary rounded" style="min-width: 40rem; max-width: 40rem;  background-image: url('/images/SoldOut.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
+						{% else %}
+							<div class="card shadow p-3 bg-body-tertiary rounded" style="min-width: 40rem; max-width: 40rem;">
+							{% endif %}
 
-						<div class="row g-0">
-							<div class="col-md-4 d-flex justify-content-center">
-								<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title">{{ item.name }}</h5>
+							<div class="row g-0">
+								<div class="col-md-4 d-flex justify-content-center">
+									<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
+								</div>
+								<div class="col-md-8">
+									<div class="card-body">
+										<h5 class="card-title">{{ item.name }}</h5>
 
-									<p class="card-text">
-										<small class="">Brand:
-											{{ item.brand }}</small>
-									</p>
-									<p class="card-text">
-										<small class="">Category:
-											{{ item.category.type }}</small>
-									</p>
-									<p class="card-text">
-										<small class="text-primary">Price:
-											{{ item.price }}
-											$</small>
-									</p>
-									<p class="card-text">
-										<small class="text-black">Quantity left:
-											{{ item.quantity }}</small>
-									</p>
-									<div>
-										{% if item.quantity > 0 %}
-											<button type="button" class="btn btn-black text-uppercase btn-rounded-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
-												Details and add to cart
-											</button>
-										{% else %}
-											<button type="button" class="btn btn-black text-uppercase btn-rounded-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
-												Details
-											</button>
-										{% endif %}
-									</div>
-									<!-- Modal -->
-									<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
-										<div class="modal-dialog modal-xl">
-											<div class="modal-content rounded-0">
-												<div class="modal-header text-center">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body row g-0">
-													<div class="col-md-4 d-flex justify-content-center">
-														<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
+										<p class="card-text">
+											<small class="">Brand:
+												{{ item.brand }}</small>
+										</p>
+										<p class="card-text">
+											<small class="">Category:
+												{{ item.category.type }}</small>
+										</p>
+										<p class="card-text">
+											<small class="text-primary">Price:
+												{{ item.price }}
+												$</small>
+										</p>
+										<p class="card-text">
+											<small class="text-black">Quantity left:
+												{{ item.quantity }}</small>
+										</p>
+										<div>
+											{% if item.quantity > 0 %}
+												<button type="button" class="btn btn-black text-uppercase btn-rounded-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+													Details and add to cart
+												</button>
+											{% else %}
+												<button type="button" class="btn btn-black text-uppercase btn-rounded-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}">
+													Details
+												</button>
+											{% endif %}
+										</div>
+										<!-- Modal -->
+										<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{item.id}}" aria-hidden="true">
+											<div class="modal-dialog modal-xl">
+												<div class="modal-content rounded-0">
+													<div class="modal-header text-center">
+														<h1 class="modal-title fs-5" id="exampleModalLabel">{{item.name}}</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
-													<div class="col-md-8">
-														<div class="card-body">
-															<p class="card-text">
-																<small class="">Brand:
-																	{{ item.brand }}</small>
-															</p>
-															<p class="card-text">
-																<small class="">Category:
-																	{{ item.category.type }}</small>
-															</p>
-															<p class="card-text">
-																<small class="text-black">Description:
-																	{{ item.description }}</small>
-															</p>
-															<p class="card-text">
-																<small class="text-primary">Price:
-																	{{ item.price }}
-																	$</small>
-															</p>
-															<p class="card-text">
-																<small class="text-black">Quantity left:
-																	{{ item.quantity }}</small>
-															</p>
-															<div>
-																{% if item.quantity > 0 %}
-																	<form action="{{ path('cart_add', {'id': item.id}) }}" method="post">
-																		<input type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1" class="btn btn-black rounded-0">
-																		<button type="submit" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</button>
-																	</form>
-																{% else %}
-																	<p class="text-danger ">Sold Out !</p>
-																{% endif %}
-															</div>
+													<div class="modal-body row g-0">
+														<div class="col-md-4 d-flex justify-content-center">
+															<img src="{{asset('/images/'~ item.picture) }}" class="img-fluid object-fit-cover position-relative" id="imgCard" alt="...">
+														</div>
+														<div class="col-md-8">
+															<div class="card-body">
+																<p class="card-text">
+																	<small class="">Brand:
+																		{{ item.brand }}</small>
+																</p>
+																<p class="card-text">
+																	<small class="">Category:
+																		{{ item.category.type }}</small>
+																</p>
+																<p class="card-text">
+																	<small class="text-black">Description:
+																		{{ item.description }}</small>
+																</p>
+																<p class="card-text">
+																	<small class="text-primary">Price:
+																		{{ item.price }}
+																		$</small>
+																</p>
+																<p class="card-text">
+																	<small class="text-black">Quantity left:
+																		{{ item.quantity }}</small>
+																</p>
+																<div>
+																	{% if item.quantity > 0 %}
+																		<form action="{{ path('cart_add', {'id': item.id}) }}" method="post">
+																			<input type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1" class="btn btn-black rounded-0">
+																			<button type="submit" class="btn btn-black text-uppercase btn-rounded-none">Add to cart</button>
+																		</form>
+																	{% else %}
+																		<p class="text-danger ">Sold Out !</p>
+																	{% endif %}
+																</div>
 
+															</div>
 														</div>
 													</div>
 												</div>
@@ -138,11 +157,8 @@
 							</div>
 						</div>
 					</div>
+				{% endfor %}
 			</div>
-		{% endfor %}
-	</div>
-			{% endif %}
-
 		{% endif %}
 	</div>
 {% endblock %}

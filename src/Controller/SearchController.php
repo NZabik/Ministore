@@ -13,16 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SearchController extends AbstractController
 {
     #[Route('/search', name: 'app_search')]
-    public function index(Request $request, ItemRepository $item): Response
+    public function index(): Response
     {
-        $query = $request->query->get('query', '');
-        $sort = $request->query->get('sort', 'desc');
-        $items = $item->findArticlesByName($query, $sort);
         return $this->render('search/index.html.twig', [
             'controller_name' => 'SearchController',
-            'items' => $items,
-            'query' => $query,
-            'sort' => $sort,
         ]);
     }
 

@@ -31,10 +31,13 @@
 			<h3>No results for your search.</h3>
 		</div>
 	{% else %}
+	<div class="container">
+			<h3 class="mt-3">Your search results for "{{query}}" :</h3>
+			</div>
 		<div class="container mt-2">
 			{% set oppositeSort = sort == 'desc' ? 'asc' : 'desc' %}
 			{% set svgPath = sort == 'desc' ? '/images/ascend-svgrepo-com.svg' : '/images/descend-svgrepo-com.svg' %}
-			<a href="{{ path('app_search', {'query': query, 'sort': oppositeSort}) }}" class="btn border btn-rounded-none mx-1 mb-2">
+			<a href="{{ path('handleSearch', {'query': query, 'sort': oppositeSort}) }}" class="btn border btn-rounded-none mx-1 mb-2">
 				<img src="{{ svgPath }}" alt="" width="20" height="20">
 			</a>
 		</div>

@@ -34,12 +34,13 @@ class ItemRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    public function findArticlesByAll($query, $query2)
+    public function findArticlesByAll($query, $query2, $sort)
 {
     if($query == "") {
         return $this->createQueryBuilder("a")
         ->andWhere('a.category = :category')
         ->setParameter('category',$query2)
+        ->orderBy('a.name', $sort)
         ->getQuery()
         ->getResult()
     ;
