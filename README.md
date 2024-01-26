@@ -4,6 +4,7 @@
   - [GITHUB copy](#github-copy)
   - [Site](#site)
     - [Languages used](#languages-used)
+    - [Users](#users)
     - [Site Details](#site-details)
       - [1. Home page](#1-home-page)
       - [2. Registration page](#2-registration-page)
@@ -30,6 +31,10 @@ and run a ```composer install``` command in the clone directory.
 - Bootstrap
 - Javascript
 - Twig
+
+### Users
+- Mail: ```melchiah.nico@gmailcom``` Mdp: ```Aqwxszedc1``` --> Admin
+- Mail: ```titi@toto.com``` Mdp: ```Aqwxszedc2``` --> User
 
 ### Site Details
 
