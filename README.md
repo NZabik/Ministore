@@ -20,7 +20,7 @@
 ## GITHUB copy
 If you want to clone this repository in your GITHUB account, you can do it in your GIT terminal.
 
-Simply do a ```git clone https://github.com/NZabik/Evaluation-2024.git```
+Simply do a ```git clone https://github.com/NZabik/Ministore.git```
 and run a ```composer install``` command in the clone directory.
 
 ## Site
